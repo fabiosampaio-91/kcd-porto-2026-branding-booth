@@ -3,557 +3,1181 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Synvert xgeeks at KCD Porto 2026 | Branding and Booth Plan</title>
+<title>synvert xgeeks at KCD Porto 2026 | Branding and Booth Plan</title>
+<meta name="description" content="Internal team briefing: how synvert xgeeks shows up at KCD Porto x DevOps Days Portugal 2026, at the booth, across the venue and at the CTO's Dinner.">
+<link rel="icon" href="assets/kcd-logo-porto.png">
 <style>
+/* =========================================================
+   Brand tokens, taken from KCD_Porto_2026_CEO_Presentation
+   ========================================================= */
+:root{
+  --blue:#0828B2;      /* headings, cards, body text */
+  --blue2:#0086FF;     /* subtitles, accent bar, cover gradient top */
+  --cyan:#93EAFF;      /* big numbers */
+  --pink:#D62293;      /* accents, card borders, tags */
+  --bg:#E5E5E5;        /* slide background */
+  --paper:#F6F6F4;
+  --muted:#5F6C93;
+  --dark:#0B1330;      /* page background behind the slides */
+  --font-head:'Trebuchet MS','Fira Sans','Segoe UI',Verdana,sans-serif;
+  --font-body:Calibri,Carlito,'Trebuchet MS','Segoe UI',Arial,sans-serif;
+
+  /* fluid type scale: relative to the slide container width (1cqw = 12.8px on a 1280px slide) */
+  --t1:3.4cqw;  --t2:1.55cqw; --t3:1.7cqw; --tb:1.4cqw; --ts:1.1cqw; --tx:4.4cqw; --tag:1.05cqw;
+  --pad-x:4.4cqw; --pad-y:2.9cqw; --gap:1.6cqw; --r:1.1cqw;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{background:var(--dark);color:var(--blue);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+b,strong{font-weight:700}
+.hl{color:var(--pink);font-weight:700}
+.b2{color:var(--blue2);font-weight:700}
+
+/* =========================================================
+   Slide shell: one <section class="slide"> per slide.
+   Desktop: full viewport, 16:9 frame centered, scroll snap.
+   ========================================================= */
+.deck{scroll-snap-type:y mandatory}
+.slide{min-height:100vh;min-height:100svh;display:grid;place-items:center;scroll-snap-align:start;scroll-snap-stop:always;position:relative}
+.frame{
+  width:min(100vw,calc(100svh * 16 / 9));
+  aspect-ratio:16/9;
+  container-type:inline-size;
+  background:var(--bg);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+.frame > .inner{flex:1;min-height:0;display:flex;flex-direction:column;padding:var(--pad-y) var(--pad-x) calc(var(--pad-y) + 1.4cqw)}
+.head{margin-bottom:var(--gap);padding-right:9cqw}
+.head h2{font-family:var(--font-head);color:var(--blue);font-size:var(--t1);line-height:1.08;letter-spacing:-.02em;font-weight:700}
+.head p.sub{color:var(--blue2);font-size:var(--t2);font-weight:700;margin-top:.5cqw;line-height:1.3}
+.body{flex:1;min-height:0;display:flex;flex-direction:column}
+.logo-corner{position:absolute;top:2.2cqw;right:3.2cqw;width:6.2cqw;background:#fff;border-radius:.9cqw;padding:.5cqw}
+.foot{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:1.1cqw;display:flex;justify-content:space-between;color:var(--muted);font-size:var(--ts);font-family:var(--font-head)}
+.tag{display:inline-block;background:var(--pink);color:#fff;font-family:var(--font-head);font-weight:700;font-size:var(--tag);letter-spacing:.14em;text-transform:uppercase;border-radius:.5cqw;padding:.45cqw 1.1cqw;margin-bottom:.9cqw}
+
+/* ---- typography ---- */
+p,li{font-size:var(--tb);line-height:1.4}
+ul.b{list-style:none}
+ul.b li{position:relative;padding-left:1.9cqw;margin-bottom:.9cqw}
+ul.b li::before{content:"";position:absolute;left:.15cqw;top:.55em;width:.7cqw;height:.7cqw;background:var(--pink);border-radius:.15cqw}
+ul.b li b{color:var(--blue)}
+.small{font-size:var(--ts);color:var(--muted)}
+.caption{font-size:var(--ts);color:var(--muted);margin-top:.6cqw;text-align:center;font-family:var(--font-head)}
+
+/* ---- layout helpers ---- */
+.cols{display:flex;gap:calc(var(--gap) * 1.6);flex:1;min-height:0}
+.cols > *{min-width:0}
+.col-l{flex:1.05}.col-r{flex:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+.grid2 > *,.grid3 > *,.grid4 > *,.stack > *{min-width:0}
+.stack{display:flex;flex-direction:column;gap:var(--gap)}
+.mt{margin-top:var(--gap)}
+.grow{flex:1;min-height:0}
+
+/* ---- cards ---- */
+.card-pink{border:.25cqw solid var(--pink);border-radius:var(--r);padding:1.5cqw 1.8cqw}
+.card-pink h3{font-family:var(--font-head);color:var(--blue);font-size:var(--t3);margin-bottom:.6cqw}
+.card-blue{position:relative;background:var(--blue);color:#fff;border-radius:.4cqw;padding:1.5cqw 1.7cqw 1.4cqw 2.3cqw}
+.card-blue::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.7cqw;background:var(--blue2);border-radius:.4cqw 0 0 .4cqw}
+.card-blue h3{font-family:var(--font-head);font-size:var(--t3);color:#fff;margin-bottom:.5cqw;line-height:1.15}
+.card-blue h3 .c{color:var(--cyan)}
+.card-blue p,.card-blue li{color:#E4ECFF;font-size:var(--tb)}
+.card-blue p.ts,.card-blue .ts{font-size:var(--ts);color:#BFD4FB}
+.card-white{background:var(--paper);border-radius:var(--r);padding:1.4cqw 1.7cqw;box-shadow:0 .5cqw 1.8cqw rgba(8,40,178,.10)}
+.card-white h3{font-family:var(--font-head);color:var(--blue);font-size:var(--t3);margin-bottom:.5cqw}
+.stat .n{color:var(--cyan);font-family:var(--font-head);font-weight:700;font-size:var(--tx);line-height:1;letter-spacing:-.02em}
+.stat .l{color:#fff;font-weight:700;font-size:var(--t3);margin-top:.7cqw;line-height:1.15}
+.stat .s{color:#BFD4FB;font-size:var(--ts);margin-top:.5cqw;line-height:1.35}
+.stat.sm .n{font-size:3cqw}
+.stat.sm .l{font-size:1.3cqw}
+.banner{background:var(--blue);color:#fff;border-radius:.9cqw;padding:1.3cqw 2cqw;font-family:var(--font-head);font-weight:700;font-size:1.75cqw;text-align:center;line-height:1.3}
+.banner .c{color:var(--cyan)}
+.banner.pink{background:var(--pink)}
+.banner.sm{font-size:1.4cqw}
+.chip{display:inline-block;font-family:var(--font-head);font-weight:700;font-size:var(--ts);border-radius:99px;padding:.25cqw .9cqw;background:var(--cyan);color:var(--blue);vertical-align:middle}
+.chip.pink{background:var(--pink);color:#fff}
+.chip.ghost{background:transparent;border:.15cqw solid var(--blue2);color:var(--blue2)}
+
+/* ---- images ---- */
+.imgbox{border-radius:var(--r);overflow:hidden;background:#fff;box-shadow:0 .5cqw 1.8cqw rgba(8,40,178,.16)}
+.imgbox img{width:100%;height:100%;object-fit:cover}
+.imgbox.contain{background:#fff}
+.imgbox.contain img{object-fit:contain}
+.photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.photo-strip .imgbox{height:12.5cqw}
+
+/* ---- option lists (wording alternatives) ---- */
+.opts{list-style:none;display:grid;gap:.8cqw}
+.opts li{border:.2cqw solid var(--pink);border-radius:.8cqw;padding:.8cqw 1.1cqw .8cqw 3.1cqw;position:relative;font-size:var(--tb);line-height:1.3;background:rgba(255,255,255,.55);color:var(--blue);font-weight:700}
+.opts li::before{content:attr(data-n);position:absolute;left:.9cqw;top:.75cqw;font-family:var(--font-head);font-weight:700;color:var(--pink);font-size:var(--ts);letter-spacing:.05em}
+.opts li.rec{background:var(--blue);border-color:var(--blue);color:#fff}
+.opts li.rec::before{color:var(--cyan)}
+.opts li .note{display:block;font-weight:400;font-size:var(--ts);color:var(--muted);margin-top:.2cqw}
+.opts li.rec .note{color:#BFD4FB}
+
+/* ---- signage mocks ---- */
+.sign{background:var(--blue);color:#fff;border-radius:var(--r);padding:2cqw 2.2cqw;text-align:center;font-family:var(--font-head);box-shadow:0 .8cqw 2.4cqw rgba(8,40,178,.28);position:relative;overflow:hidden}
+.sign::after{content:"";position:absolute;inset:auto -20% -60% auto;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(0,134,255,.55),transparent 70%);pointer-events:none}
+.sign .eyebrow{font-size:var(--ts);letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:.8cqw}
+.sign .big{font-size:2.3cqw;font-weight:700;line-height:1.15}
+.sign .big .c{color:var(--cyan)}
+.sign .big.md{font-size:2cqw}
+.sign .big.sm{font-size:1.7cqw}
+.sign .mid{font-size:1.4cqw;letter-spacing:.2em}
+.sign .brand{margin-top:1.1cqw;font-size:1.3cqw;font-weight:700}
+.sign .brand span{color:var(--cyan)}
+.sign .tiny{font-size:var(--ts);color:#BFD4FB;margin-top:.3cqw;font-family:var(--font-body)}
+.hightable{display:flex;flex-direction:column;align-items:center;gap:0}
+.hightable .top{width:19cqw;height:19cqw;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2A6BF0,var(--blue) 70%);color:#fff;display:grid;align-content:center;justify-items:center;text-align:center;padding:2.4cqw;font-family:var(--font-head);font-weight:700;font-size:1.55cqw;line-height:1.25;box-shadow:0 1cqw 2.6cqw rgba(8,40,178,.35);border:.5cqw solid #fff}
+.hightable .top .lo{display:block;margin-top:.9cqw;font-size:var(--ts);color:var(--cyan);letter-spacing:.06em}
+.hightable .top.long{font-size:1.3cqw}
+.hightable .leg{width:1.2cqw;height:6cqw;background:linear-gradient(#9AA6C6,#5F6C93)}
+.hightable .base{width:9cqw;height:1cqw;border-radius:99px;background:#5F6C93}
+.rollup{width:15.5cqw;height:31cqw;border-radius:1.2cqw 1.2cqw .5cqw .5cqw;background:linear-gradient(170deg,#1A56E8 0%,var(--blue) 55%,#061C7A 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:1.7cqw 1.5cqw;box-shadow:0 1cqw 2.6cqw rgba(8,40,178,.35);font-family:var(--font-head);position:relative;flex:none}
+.rollup .top{font-size:var(--ts);letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+.rollup .pun{font-size:2.1cqw;font-weight:700;line-height:1.12}
+.rollup .by{font-size:var(--ts);color:#BFD4FB;line-height:1.4;font-family:var(--font-body)}
+.rollup .by b{display:block;color:#fff;font-family:var(--font-head);font-size:1.25cqw;margin-top:.3cqw}
+.rollup .by b span{color:var(--cyan)}
+.lanyard{position:relative;height:5.2cqw;border-radius:.6cqw;background:var(--pink);overflow:hidden;display:flex;align-items:center;box-shadow:0 .5cqw 1.6cqw rgba(214,34,147,.3)}
+.lanyard span{white-space:nowrap;font-family:var(--font-head);font-weight:700;color:#fff;font-size:1.35cqw;letter-spacing:.12em;padding-left:1cqw}
+.lanyard span i{font-style:normal;color:#ffd6ee;margin:0 1.2cqw}
+.bottle{display:flex;align-items:center;gap:1.4cqw}
+.bottle .shape{width:5.2cqw;height:15cqw;border-radius:2.6cqw 2.6cqw 1cqw 1cqw;background:linear-gradient(180deg,#BFE6FF,#6FB5F5 40%,var(--blue2));position:relative;flex:none;box-shadow:inset -1cqw 0 1.6cqw rgba(255,255,255,.35),0 .6cqw 1.6cqw rgba(8,40,178,.25)}
+.bottle .shape::before{content:"";position:absolute;top:-1.6cqw;left:1.4cqw;width:2.4cqw;height:1.8cqw;background:var(--blue);border-radius:.4cqw .4cqw 0 0}
+.bottle .shape .lbl{position:absolute;left:0;right:0;top:5.2cqw;background:var(--blue);color:#fff;font-family:var(--font-head);font-weight:700;font-size:.72cqw;text-align:center;padding:.6cqw .2cqw;line-height:1.35}
+.bottle .shape .lbl .c{color:var(--cyan)}
+
+/* ---- booth photo annotations ---- */
+.anno{position:relative}
+.anno .box{position:absolute;border:.25cqw dashed var(--pink);border-radius:.8cqw;background:rgba(214,34,147,.14)}
+.anno .lbl{position:absolute;background:var(--pink);color:#fff;font-family:var(--font-head);font-weight:700;font-size:.95cqw;padding:.35cqw .7cqw;border-radius:.5cqw;white-space:nowrap;box-shadow:0 .2cqw .8cqw rgba(0,0,0,.35);line-height:1.2}
+
+/* ---- booth layout sketch ---- */
+.sketch{background:var(--paper);border-radius:var(--r);padding:1.6cqw 1.8cqw 1.2cqw;box-shadow:0 .5cqw 1.8cqw rgba(8,40,178,.12);display:flex;flex-direction:column;gap:1.1cqw;font-family:var(--font-head)}
+.sketch .backdrop{background:var(--blue);color:#fff;border-radius:.5cqw;padding:.9cqw 1.4cqw;text-align:center;font-weight:700;font-size:1.25cqw;letter-spacing:.02em}
+.sketch .backdrop span{color:var(--cyan)}
+.sketch .backdrop small{display:block;font-size:var(--ts);color:#BFD4FB;font-weight:400;letter-spacing:.1em;text-transform:uppercase;margin-top:.2cqw}
+.sketch .row{display:grid;grid-template-columns:1.25fr .75fr .55fr;gap:1.1cqw;align-items:end}
+.sketch .screen{background:#0B1330;border:.55cqw solid #2A3453;border-radius:.6cqw;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:.8cqw;font-size:var(--ts);line-height:1.3}
+.sketch .screen b{color:var(--cyan);font-size:1.15cqw}
+.sketch .screen.large{height:9.2cqw}
+.sketch .screen.small{height:6.6cqw}
+.sketch .hitable{height:6.6cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-radius:.6cqw;background:#fff;border:.25cqw solid var(--pink);font-size:var(--ts);color:var(--pink);font-weight:700;padding:.4cqw;line-height:1.25}
+.sketch .tables{display:grid;grid-template-columns:1fr 1fr;gap:1.1cqw}
+.sketch .table{background:var(--pink);color:#fff;border-radius:.5cqw;padding:.9cqw;text-align:center;font-weight:700;font-size:1.1cqw;line-height:1.3}
+.sketch .table small{display:block;font-weight:400;font-size:var(--ts);color:#ffd6ee;font-family:var(--font-body)}
+.sketch .flow{display:flex;align-items:center;gap:.8cqw;color:var(--blue2);font-weight:700;font-size:var(--ts);letter-spacing:.08em;text-transform:uppercase}
+.sketch .flow .line{flex:1;height:.25cqw;background:repeating-linear-gradient(90deg,var(--blue2) 0 .8cqw,transparent .8cqw 1.4cqw);position:relative}
+.sketch .flow .line::after{content:"";position:absolute;right:-.2cqw;top:-.55cqw;border:.65cqw solid transparent;border-left-color:var(--blue2);border-right:0}
+
+/* ---- funnel ---- */
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:.9cqw;align-items:stretch}
+.funnel .step{background:var(--paper);border-radius:.8cqw;padding:1cqw 1.1cqw;text-align:center;position:relative;box-shadow:0 .4cqw 1.4cqw rgba(8,40,178,.10)}
+.funnel .step:not(:last-child)::after{content:"";position:absolute;right:-1.05cqw;top:50%;transform:translateY(-50%);border:.7cqw solid transparent;border-left-color:var(--blue2);border-right:0;z-index:2}
+.funnel .n{font-family:var(--font-head);font-weight:700;color:var(--blue);font-size:2.2cqw;line-height:1}
+.funnel .l{font-size:var(--ts);color:var(--muted);margin-top:.4cqw;line-height:1.3}
+.funnel .step.goal{background:var(--pink)}
+.funnel .step.goal .n{color:#fff}.funnel .step.goal .l{color:#ffe0f1}
+
+/* ---- decisions table ---- */
+table.dec{width:100%;border-collapse:collapse;font-size:1.25cqw}
+table.dec th{background:var(--blue);color:#fff;text-align:left;padding:.8cqw 1.2cqw;font-family:var(--font-head);font-size:var(--ts);letter-spacing:.08em;text-transform:uppercase}
+table.dec td{background:#fff;border-bottom:.2cqw solid var(--bg);padding:.72cqw 1.2cqw;line-height:1.3;vertical-align:top;color:var(--blue)}
+table.dec td:first-child{font-weight:700;width:24%}
+table.dec td:last-child{width:11%}
+table.dec .own{color:var(--pink);font-weight:700;font-family:var(--font-head)}
+table.dec tr:first-child td:first-child{border-radius:0}
+
+/* =========================================================
+   Cover
+   ========================================================= */
+.cover .inner{padding:0;flex-direction:row}
+.cover-left{position:relative;width:62%;height:100%;background:linear-gradient(180deg,#0086FF 0%,#0454D6 48%,#0828B2 100%);padding:2.7cqw 3.6cqw;display:flex;flex-direction:column;color:#fff}
+.cover-right{width:38%;height:100%}
+.cover-right img{width:100%;height:100%;object-fit:cover}
+.cncf{display:flex;align-items:center;gap:.8cqw}
+.cncf img{width:2.7cqw}
+.cncf .t{font-family:var(--font-head);font-weight:700;font-size:1.15cqw;letter-spacing:.06em;line-height:1.1;text-transform:uppercase}
+.cncf .t small{display:block;font-size:.8cqw;letter-spacing:.08em}
+.dod{position:absolute;top:2cqw;right:2.4cqw;background:#fff;border-radius:.9cqw;padding:.6cqw .9cqw;width:7cqw}
+.dod img{width:100%}
+.logo-panel{margin:2.2cqw auto 0;border:.25cqw solid rgba(255,255,255,.95);border-radius:1.8cqw;padding:2cqw 5cqw;text-align:center;width:min(100%,46cqw)}
+.logo-panel img{width:19.5cqw;margin:0 auto}
+.cover-title{text-align:center;margin-top:2cqw}
+.cover-title h1{font-family:var(--font-head);font-size:2.95cqw;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.cover-title h1 .x{color:var(--cyan)}
+.cover-title p{color:#D8E6FF;font-size:1.4cqw;margin-top:.7cqw;font-weight:700}
+.cover-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end}
+.cover-foot .l{font-weight:700;font-size:1.2cqw;line-height:1.5;font-family:var(--font-head)}
+.cover-foot .r{text-align:right;font-size:1.2cqw;line-height:1.5}
+
+/* =========================================================
+   Divider slides (full bleed photo)
+   ========================================================= */
+.divider .inner{padding:0}
+.divider .bg{position:absolute;inset:0}
+.divider .bg img{width:100%;height:100%;object-fit:cover}
+.divider .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,40,178,.94) 0%,rgba(8,40,178,.82) 45%,rgba(8,40,178,.25) 100%)}
+.divider .txt{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;padding:var(--pad-y) var(--pad-x);color:#fff;max-width:64%}
+.divider .k{font-family:var(--font-head);font-weight:700;color:var(--cyan);font-size:6.5cqw;line-height:1;letter-spacing:-.03em}
+.divider h2{font-family:var(--font-head);font-size:4.2cqw;line-height:1.05;margin-top:1cqw;letter-spacing:-.02em}
+.divider p{font-size:1.75cqw;margin-top:1.4cqw;color:#D8E6FF;max-width:44cqw;font-weight:700}
+.divider .tag{margin-bottom:1.6cqw}
+
+/* =========================================================
+   HUD, navigation
+   ========================================================= */
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--pink);width:0;z-index:60;transition:width .2s}
+#hud{position:fixed;right:16px;bottom:14px;z-index:60;display:flex;align-items:center;gap:8px;font-family:var(--font-head);color:#fff;font-size:13px;user-select:none}
+#hud .cnt{background:rgba(8,40,178,.85);border-radius:99px;padding:6px 12px;min-width:64px;text-align:center}
+#hud button{appearance:none;border:0;background:rgba(8,40,178,.85);color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+#hud button:hover{background:var(--pink)}
+#hud button:disabled{opacity:.35;cursor:default}
+#hint{position:fixed;left:16px;bottom:14px;z-index:60;color:#8FA0C8;font:12px var(--font-head);pointer-events:none}
+#hint kbd{display:inline-block;border:1px solid #3a4a7a;border-radius:4px;padding:0 5px;font:inherit;color:#c7d3f5;margin:0 2px}
+.skip{position:absolute;left:-999px}
+
+/* =========================================================
+   Phone / narrow screens: sections flow, type gets rem floors
+   ========================================================= */
+@media (max-width: 899px){
   :root{
-    --blue:#0828B2;        /* headings + dark cards */
-    --blue-bright:#1B5CE0; /* cover gradient */
-    --blue-light:#43A1F7;  /* subtitles */
-    --cyan:#93EAFF;        /* stat numbers */
-    --pink:#D62293;        /* accents + card borders */
-    --bg:#E5E5E5;          /* slide background */
-    --ink:#12275e;         /* body text */
-    --card:#F4F4F2;
+    --t1:1.55rem; --t2:1rem; --t3:1.05rem; --tb:.95rem; --ts:.8rem; --tx:2.4rem; --tag:.7rem;
+    --pad-x:1.1rem; --pad-y:1.3rem; --gap:.9rem; --r:12px;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;background:#101425;font-family:Calibri,Carlito,'Segoe UI',Arial,sans-serif;color:var(--ink)}
-  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
-  .deck{position:relative;width:1280px;height:720px;transform-origin:center center}
-  .slide{position:absolute;inset:0;width:1280px;height:720px;background:var(--bg);display:none;overflow:hidden}
-  .slide.active{display:block}
-  .slide.active.cover{display:flex}
+  .deck{scroll-snap-type:none}
+  .slide{min-height:0;display:block;padding:10px 0}
+  .frame{width:100%;aspect-ratio:auto;box-shadow:none;border-radius:0;display:block;min-height:0}
+  .frame > .inner{display:block;padding:var(--pad-y) var(--pad-x) 2.2rem}
+  .head{padding-right:64px}
+  .head p.sub{margin-top:4px}
+  .logo-corner{width:48px;top:12px;right:12px;border-radius:8px;padding:5px}
+  .foot{position:static;margin-top:1.2rem;padding-top:.6rem;border-top:1px solid #d5d5d5;gap:12px}
+  .tag{border-radius:6px;padding:4px 10px;margin-bottom:8px}
+  ul.b li{padding-left:18px;margin-bottom:8px}
+  ul.b li::before{left:2px;top:.5em;width:8px;height:8px;border-radius:2px}
+  .caption{margin-top:6px}
+  .cols{display:block}
+  .cols > * + *{margin-top:var(--gap)}
+  .grid2,.grid3,.grid4,.photo-strip,.funnel{grid-template-columns:1fr}
+  .funnel{gap:14px}
+  .funnel .step:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-15px;transform:translateX(-50%) rotate(90deg);border-width:8px}
+  .funnel .n{font-size:1.7rem}
+  .funnel .step{padding:12px}
+  .card-pink,.card-white{padding:14px 16px;border-width:3px}
+  .card-blue{padding:14px 16px 14px 22px;border-radius:6px}
+  .card-blue::before{width:7px;border-radius:6px 0 0 6px}
+  .banner{border-radius:10px;padding:12px 16px;font-size:1rem}
+  .chip{padding:2px 10px}
+  .imgbox{border-radius:12px;height:auto !important}
+  .imgbox img{height:auto;object-fit:contain;background:#fff}
+  .photo-strip .imgbox img{height:44vw;object-fit:cover}
+  .anno .box,.anno .lbl{border-radius:6px}
+  .hightable .top.long{font-size:.9rem}
+  .banner.sm{font-size:.95rem}
+  .sign .big.md{font-size:1.2rem}.sign .big.sm{font-size:1.05rem}.sign .mid{font-size:.8rem}
+  .stat.sm .n{font-size:2rem}.stat.sm .l{font-size:1rem}
+  .opts{gap:8px}
+  .opts li{border-width:2px;border-radius:8px;padding:9px 12px 9px 34px}
+  .opts li::before{left:10px;top:9px}
+  .sign{border-radius:14px;padding:18px 16px}
+  .sign .eyebrow{margin-bottom:8px}
+  .sign .big{font-size:1.25rem}
+  .sign .brand{font-size:1rem;margin-top:10px}
+  .hightable .top{width:220px;height:220px;padding:26px;font-size:1rem;border-width:6px}
+  .hightable .top .lo{margin-top:8px}
+  .hightable .leg{width:14px;height:56px}
+  .hightable .base{width:110px;height:12px}
+  .rollup{width:200px;height:380px;border-radius:14px 14px 6px 6px;padding:20px 18px;margin:0 auto}
+  .rollup .pun{font-size:1.5rem}
+  .rollup .by b{font-size:1rem;margin-top:4px}
+  .lanyard{height:44px;border-radius:8px}
+  .lanyard span{font-size:.95rem;padding-left:10px}
+  .lanyard span i{margin:0 10px}
+  .bottle{gap:14px}
+  .bottle .shape{width:64px;height:190px;border-radius:32px 32px 12px 12px}
+  .bottle .shape::before{top:-20px;left:18px;width:28px;height:22px;border-radius:5px 5px 0 0}
+  .bottle .shape .lbl{top:64px;font-size:.62rem;padding:7px 2px}
+  .anno .box{border-width:2px;border-radius:8px}
+  .anno .lbl{font-size:.7rem;padding:3px 7px;border-radius:5px}
+  .sketch{border-radius:12px;padding:14px;gap:10px}
+  .sketch .backdrop{font-size:.95rem;padding:10px 12px;border-radius:6px}
+  .sketch .row{grid-template-columns:1.2fr .8fr .6fr;gap:8px}
+  .sketch .screen{border-width:5px;border-radius:6px;padding:6px;font-size:.7rem}
+  .sketch .screen b{font-size:.8rem}
+  .sketch .screen.large{height:86px}.sketch .screen.small{height:64px}
+  .sketch .hitable{height:64px;font-size:.65rem;border-width:2px;border-radius:6px}
+  .sketch .tables{gap:8px}
+  .sketch .table{font-size:.85rem;padding:8px;border-radius:6px}
+  .sketch .flow{gap:8px}
+  .sketch .flow .line{height:3px}
+  .sketch .flow .line::after{right:-2px;top:-6px;border-width:7px}
+  .stat .n{font-size:var(--tx)}
+  table.dec{font-size:.9rem}
+  table.dec thead{display:none}
+  table.dec,table.dec tbody,table.dec tr,table.dec td{display:block;width:auto}
+  table.dec tr{background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:8px}
+  table.dec td{padding:2px 0;border:0;background:transparent}
+  table.dec td:first-child{width:auto;font-size:1rem;font-family:var(--font-head)}
+  table.dec td:last-child{width:auto}
+  table.dec td:last-child::before{content:"Owner: ";color:var(--muted);font-weight:400;font-family:var(--font-body)}
+  /* cover */
+  .cover .inner{display:flex;flex-direction:column-reverse;padding:0}
+  .cover-left{width:100%;height:auto;padding:22px 18px 20px}
+  .cover-right{width:100%;height:220px}
+  .cncf img{width:26px}
+  .cncf .t{font-size:.8rem}.cncf .t small{font-size:.6rem}
+  .dod{top:auto;bottom:auto;position:static;width:64px;margin:12px 0 0 auto;border-radius:8px;padding:6px}
+  .logo-panel{margin:14px auto 0;border-radius:18px;padding:18px 24px;width:min(100%,320px);border-width:3px}
+  .logo-panel img{width:150px}
+  .cover-title{margin-top:18px}
+  .cover-title h1{font-size:1.55rem}
+  .cover-title p{font-size:.95rem;margin-top:6px}
+  .cover-foot{margin-top:22px;display:block}
+  .cover-foot .l,.cover-foot .r{font-size:.85rem;text-align:left}
+  .cover-foot .r{margin-top:8px;color:#D8E6FF}
+  /* dividers */
+  .divider .frame{min-height:0}
+  .divider .inner{display:block;position:relative;min-height:320px;padding:0}
+  .divider .txt{position:relative;max-width:none;padding:36px 20px}
+  .divider .bg::after{background:linear-gradient(180deg,rgba(8,40,178,.92) 0%,rgba(8,40,178,.75) 100%)}
+  .divider .k{font-size:3rem}
+  .divider h2{font-size:1.8rem;margin-top:6px}
+  .divider p{font-size:1rem;margin-top:10px;max-width:none}
+  .divider .tag{margin-bottom:12px}
+  #hint{display:none}
+}
 
-  h1,h2,h3,.font-head{font-family:'Trebuchet MS','Segoe UI',Verdana,sans-serif}
-  .pad{padding:44px 56px}
-  h2.title{color:var(--blue);font-size:42px;font-weight:700;letter-spacing:-0.5px}
-  p.subtitle{color:var(--blue-light);font-size:19px;font-weight:600;margin-top:4px}
-  .kcd-corner{position:absolute;top:22px;right:36px;width:66px;background:var(--blue);border-radius:10px;padding:9px 10px}
-  .kcd-corner img{width:100%;display:block}
-  .foot{position:absolute;bottom:16px;left:56px;right:56px;display:flex;justify-content:space-between;color:#7d88a8;font-size:13px}
-  .tag{display:inline-block;background:var(--pink);color:#fff;font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;border-radius:6px;padding:5px 14px;margin-bottom:10px}
-
-  /* cards */
-  .card-pink{background:var(--card);border:3px solid var(--pink);border-radius:14px;padding:22px 26px}
-  .card-blue{position:relative;background:var(--blue);border-radius:4px;color:#fff;padding:20px 22px 18px 28px}
-  .card-blue::before{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:#2FA1F5;border-radius:4px 0 0 4px}
-  .stat-num{color:var(--cyan);font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:46px;line-height:1.05}
-  .stat-label{color:#fff;font-weight:700;font-size:16px;margin-top:6px}
-  .stat-sub{color:#bcd4f7;font-size:13px;margin-top:3px}
-
-  ul.b{list-style:none}
-  ul.b li{position:relative;padding-left:22px;margin-bottom:12px;font-size:18px;line-height:1.4;color:var(--ink)}
-  ul.b li::before{content:"";position:absolute;left:2px;top:9px;width:9px;height:9px;background:var(--pink);border-radius:2px}
-  ul.b li b{color:var(--blue)}
-  .hl{color:var(--pink);font-weight:700}
-
-  .imgbox{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 22px rgba(10,25,90,.18)}
-  .imgbox img{display:block;width:100%;height:100%;object-fit:cover}
-  .caption{font-size:13px;color:#7d88a8;margin-top:8px;text-align:center}
-
-  .banner{background:var(--blue);color:#fff;border-radius:10px;padding:16px 24px;font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:21px;text-align:center}
-  .banner .c{color:var(--cyan)}
-
-  /* ===== cover ===== */
-  .cover{display:flex}
-  .cover-left{position:relative;width:62%;height:100%;background:linear-gradient(180deg,#2F7FE6 0%,#1240D2 62%,#0A2CB5 100%);padding:34px 46px;display:flex;flex-direction:column}
-  .cover-right{width:38%;height:100%}
-  .cover-right img{width:100%;height:100%;object-fit:cover}
-  .cncf{display:flex;align-items:center;gap:10px;color:#fff}
-  .cncf img{width:34px}
-  .cncf .t1{font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:15px;letter-spacing:.5px;line-height:1.1}
-  .dod-badge{position:absolute;top:26px;right:30px;background:#fff;border-radius:12px;padding:8px 12px;width:86px;text-align:center}
-  .dod-badge img{width:58px}
-  .logo-panel{margin:26px auto 0;border:3px solid rgba(255,255,255,.9);border-radius:22px;padding:26px 60px;text-align:center}
-  .logo-panel img{width:250px}
-  .cover-title{text-align:center;margin-top:26px}
-  .cover-title h1{color:#fff;font-size:37px;font-weight:700;letter-spacing:-.5px}
-  .cover-title h1 .x{color:var(--cyan)}
-  .cover-title p{color:#cfe2ff;font-size:18px;margin-top:8px;font-weight:600}
-  .cover-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;color:#fff}
-  .cover-foot .l{font-weight:700;font-size:15px;line-height:1.5}
-  .cover-foot .r{text-align:right;font-size:15px;line-height:1.5}
-
-  .cols{display:flex;gap:34px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
-
-  .num{font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:40px;color:var(--pink);line-height:1}
-  .obj-card h3{color:#fff;font-size:21px;margin-bottom:8px}
-  .obj-card p{color:#d7e5fb;font-size:15px;line-height:1.45}
-  .pillar-card h3{color:var(--blue);font-size:22px;margin:8px 0 8px}
-  .pillar-card p{font-size:15px;line-height:1.45;color:var(--ink)}
-
-  /* booth photo overlays */
-  .anno{position:relative}
-  .anno .box{position:absolute;border:3px dashed var(--pink);border-radius:10px;background:rgba(214,34,147,.12)}
-  .anno .lbl{position:absolute;background:var(--pink);color:#fff;font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:12.5px;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.35)}
-
-  /* wifi / sign mocks */
-  .mock-sign{background:var(--blue);border-radius:12px;color:#fff;padding:26px 30px;text-align:center;font-family:'Trebuchet MS',sans-serif;box-shadow:0 8px 24px rgba(10,25,90,.25)}
-  .rollup{width:250px;height:420px;border-radius:14px 14px 6px 6px;background:linear-gradient(170deg,#0F3AC8 0%,#0A2CB5 55%,#071E7E 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:26px 22px;box-shadow:0 10px 26px rgba(10,25,90,.3);font-family:'Trebuchet MS',sans-serif}
-
-  table.dec{width:100%;border-collapse:collapse;font-size:16.5px}
-  table.dec th{background:var(--blue);color:#fff;text-align:left;padding:11px 16px;font-family:'Trebuchet MS',sans-serif;font-size:15px}
-  table.dec td{background:#fff;border-bottom:2px solid var(--bg);padding:10px 16px;line-height:1.35}
-  table.dec td:first-child{font-weight:700;color:var(--blue)}
-  table.dec .own{color:var(--pink);font-weight:700}
-
-  /* controls */
-  #hud{position:fixed;right:18px;bottom:14px;color:#8fa0c8;font:13px 'Trebuchet MS',sans-serif;z-index:50;user-select:none}
-  #hud b{color:#fff}
-  .nav-hint{position:fixed;left:18px;bottom:14px;color:#5a6b96;font:12px 'Trebuchet MS',sans-serif;z-index:50}
-
-  @media print{
-    html,body{background:#fff}
-    #stage{position:static;display:block}
-    .deck{width:1280px;height:auto;transform:none !important}
-    .slide{position:relative;display:block;page-break-after:always;break-after:page}
-    #hud,.nav-hint{display:none}
-    @page{size:1280px 720px;margin:0}
-  }
+/* =========================================================
+   Print / PDF: one slide per 16:9 page
+   ========================================================= */
+@page{size:1280px 720px;margin:0}
+@media print{
+  html,body{background:#fff}
+  .deck{scroll-snap-type:none}
+  .slide{min-height:0;height:720px;width:1280px;display:block;page-break-after:always;break-after:page;break-inside:avoid;overflow:hidden}
+  .slide:last-child{page-break-after:auto;break-after:auto}
+  .frame{width:1280px;height:720px;aspect-ratio:auto;box-shadow:none}
+  #progress,#hud,#hint{display:none !important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 </style>
 </head>
 <body>
-<div id="stage"><div class="deck" id="deck">
+<div id="progress"></div>
+<a class="skip" href="#s1">Start of presentation</a>
 
-<!-- ============ 1. COVER ============ -->
-<section class="slide cover">
-  <div class="cover-left">
-    <div class="cncf">
-      <img src="assets/cncf-icon.png" alt="CNCF">
-      <div class="t1">CLOUD NATIVE<br><span style="font-weight:400;font-size:12px;letter-spacing:1px">COMPUTING FOUNDATION</span></div>
-    </div>
-    <div class="dod-badge"><img src="assets/devopsdays-logo.png" alt="DevOpsDays Portugal"></div>
-    <div class="logo-panel"><img src="assets/kcd-logo-white.png" alt="KCD Porto"></div>
-    <div class="cover-title">
-      <h1>synvert <span class="x">xgeeks</span> at KCD Porto 2026</h1>
-      <p>Branding and Booth Plan &nbsp;|&nbsp; Internal team briefing</p>
-    </div>
-    <div class="cover-foot">
-      <div class="l">19 + 20 Nov 2026<br>Super Bock Arena / Palacio de Cristal</div>
-      <div class="r">Two communities<br>One landmark event</div>
-    </div>
-  </div>
-  <div class="cover-right"><img src="assets/cover-palacio.jpg" alt="Palacio de Cristal"></div>
-</section>
+<main class="deck" id="deck">
 
-<!-- ============ 2. ALL EYES ON US ============ -->
-<section class="slide">
-  <div class="pad">
-    <h2 class="title">All eyes will be on us</h2>
-    <p class="subtitle">We created, run and shape Iberia's most relevant Cloud Native + DevOps event</p>
-    <div class="cols" style="margin-top:26px">
-      <div style="flex:1.15">
-        <ul class="b" style="margin-top:6px">
-          <li><b>2026 is the landmark edition:</b> KCD Porto joins forces with DevOps Days Portugal, with synvert xgeeks as the legal entity behind both</li>
-          <li><b>Our name is on everything:</b> we are the organizer, the host and the biggest sponsor in the room</li>
-          <li><b>The venue works for us:</b> the sponsor foyer is a mandatory passage area, so visibility is guaranteed</li>
-          <li>This deck is the plan for how we show up: <span class="hl">booth, venue branding and the CTO's Dinner</span></li>
-        </ul>
-      </div>
-      <div style="flex:1">
-        <div class="grid2">
-          <div class="card-blue"><div class="stat-num">500+</div><div class="stat-label">Expected attendees</div><div class="stat-sub">Two days, two communities</div></div>
-          <div class="card-blue"><div class="stat-num">150+</div><div class="stat-label">Companies represented</div><div class="stat-sub">CTOs, platform engineers, architects</div></div>
-          <div class="card-blue"><div class="stat-num">50+</div><div class="stat-label">Speakers</div><div class="stat-sub">4+ international keynotes</div></div>
-          <div class="card-blue"><div class="stat-num">20+</div><div class="stat-label">Sponsors expected</div><div class="stat-sub">We are the host of all of them</div></div>
+<!-- ===================== 1. COVER ===================== -->
+<section class="slide" id="s1" aria-label="Cover">
+  <div class="frame cover">
+    <div class="inner">
+      <div class="cover-left">
+        <div class="cncf"><img src="assets/cncf-icon.png" alt="CNCF"><div class="t">Cloud Native<small>Computing Foundation</small></div></div>
+        <div class="dod"><img src="assets/devopsdays-logo.png" alt="DevOpsDays Portugal"></div>
+        <div class="logo-panel"><img src="assets/kcd-logo-white.png" alt="KCD Porto, growing cloud native together"></div>
+        <div class="cover-title">
+          <h1>synvert <span class="x">xgeeks</span> at KCD Porto 2026</h1>
+          <p>Branding and Booth Plan &nbsp;|&nbsp; Internal team briefing</p>
+        </div>
+        <div class="cover-foot">
+          <div class="l">19 + 20 Nov 2026<br>Super Bock Arena / Palacio de Cristal</div>
+          <div class="r">Two communities<br>One landmark event</div>
         </div>
       </div>
-    </div>
-    <div class="banner" style="margin-top:24px">Everyone coming from <span class="c">GL, Hitachi and Synvert</span> has to walk in and feel that this conference is effectively ours.</div>
-  </div>
-  <div class="kcd-corner"><img src="assets/kcd-logo-white.png" alt="KCD Porto"></div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>2</span></div>
-</section>
-
-<!-- ============ 3. OBJECTIVES + PILLARS ============ -->
-<section class="slide">
-  <div class="pad">
-    <h2 class="title">Three objectives, three pillars</h2>
-    <p class="subtitle">What we want from the event, and how we will get it</p>
-    <div class="grid3" style="margin-top:24px">
-      <div class="card-blue obj-card"><h3>Brand exposure</h3><p>synvert xgeeks visible in every corner of the venue, on stage, on screens and around every neck</p></div>
-      <div class="card-blue obj-card"><h3>Business development</h3><p>Qualified conversations with decision-makers from 150+ companies, hosted on our home turf</p></div>
-      <div class="card-blue obj-card"><h3>Hiring</h3><p>Where relevant: 500+ engineers and architects seeing us as the employer of choice in Cloud Native</p></div>
-    </div>
-    <div class="grid3" style="margin-top:22px">
-      <div class="card-pink pillar-card"><span class="num">01</span><h3>The Booth</h3><p>Our stand sits at the entrance of the venue. Bigger, sharper, rebranded, and impossible to miss.</p></div>
-      <div class="card-pink pillar-card"><span class="num">02</span><h3>Branding across the venue</h3><p>Rooms, lounge, wifi, lanyards, coffee, water. Every unsold sponsor asset becomes ours.</p></div>
-      <div class="card-pink pillar-card"><span class="num">03</span><h3>CTO's Dinner</h3><p>The official welcome dinner on day one, sponsored by synvert xgeeks.</p></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:14px;margin-top:22px">
-      <div class="imgbox" style="height:128px"><img src="assets/venue-arena.jpg" alt="Super Bock Arena"></div>
-      <div class="imgbox" style="height:128px"><img src="assets/venue-dome.jpg" alt="Arena dome interior"></div>
-      <div class="imgbox" style="height:128px"><img src="assets/venue-auditorium.jpg" alt="Auditorium"></div>
-    </div>
-    <div class="caption">Our stage: Super Bock Arena / Palacio de Cristal, Porto</div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>3</span></div>
-</section>
-
-<!-- ============ 4. BOOTH LOCATION ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 01 | Booth</span>
-    <h2 class="title">Our spot is the entrance door</h2>
-    <p class="subtitle">Piso -1, the stand marked "Stand KCD", right at the bottom of the entrance stairs</p>
-    <div class="cols" style="margin-top:18px;align-items:flex-start">
-      <div style="flex:1.02">
-        <div class="imgbox" style="height:400px"><img src="assets/plan-piso-1-zoom.png" alt="Floor plan Piso -1 with Stand KCD highlighted" style="object-fit:contain;background:#fff"></div>
-        <div class="caption">Official venue plan, Piso -1. Highlighted: Stand KCD, 4x3m.</div>
-      </div>
-      <div style="flex:.98">
-        <ul class="b" style="margin-top:8px">
-          <li>Attendees enter through the stairs and cloakroom area and land <b>directly in front of our stand</b></li>
-          <li>It is the <b>first and last thing</b> every single attendee sees, on both days</li>
-          <li>The foyer around it is a <b>mandatory passage</b> to the auditorium and side rooms</li>
-          <li>Platinum and Gold sponsors sit behind and beside us. <span class="hl">We hold the best position in the venue</span></li>
-        </ul>
-        <div class="banner" style="margin-top:16px;font-size:19px">This spot is practically the entrance door.<br><span class="c">It is the ticket in.</span></div>
-      </div>
+      <div class="cover-right"><img src="assets/cover-palacio.jpg" alt="Palacio de Cristal dome and gardens, Porto"></div>
     </div>
   </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>4</span></div>
 </section>
 
-<!-- ============ 5. BOOTH REUSE ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 01 | Booth</span>
-    <h2 class="title">Reuse smart, rebrand cheap</h2>
-    <p class="subtitle">Last year's booth is a strong base. We update it instead of buying everything new</p>
-    <div class="cols" style="margin-top:16px;align-items:flex-start">
-      <div style="width:352px;flex:none">
-        <div class="imgbox anno" style="height:432px">
-          <img src="assets/booth-2025.jpg" alt="xgeeks booth at KCD Porto 2025" style="object-fit:cover;object-position:50% 40%">
-          <div class="box" style="left:36.5%;top:33.5%;width:15.5%;height:5.5%"></div>
-          <div class="lbl" style="left:53.5%;top:34.5%">1 cover strip</div>
-          <div class="box" style="left:3.5%;top:43%;width:25%;height:21%"></div>
-          <div class="lbl" style="left:5%;top:37.5%">2 new TV frame</div>
-          <div class="box" style="left:29%;top:63%;width:22%;height:12%"></div>
-          <div class="lbl" style="left:52%;top:66%">3 new front panel</div>
-        </div>
-        <div class="caption">Our booth at KCD Porto 2025</div>
+<!-- ===================== 2. FRAMING ===================== -->
+<section class="slide" id="s2" aria-label="All eyes will be on us">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <h2>All eyes will be on us</h2>
+        <p class="sub">We created, we run and we shape Iberia's most relevant Cloud Native + DevOps event. In 2026 we host it.</p>
       </div>
-      <div style="flex:1">
-        <ul class="b" style="margin-top:4px">
-          <li><b>1. Reuse the backdrop.</b> We print a cover strip over the part that says "synvert" and place the new identity there: <span class="hl">synvert xgeeks, a Synvert GL Company</span></li>
-          <li><b>2. New TV frame.</b> Make it new and cheaper, with the new logo and design</li>
-          <li><b>3. New table front panel.</b> Same approach: new print, new design, low cost</li>
-          <li>Everything else (table, TV, hardware) <b>we already own</b></li>
-        </ul>
-        <div class="card-pink" style="margin-top:14px;padding:16px 22px"><b style="color:var(--blue);font-family:'Trebuchet MS',sans-serif">Principle:</b> spend on presence and dynamics, not on rebuying structures that still work.</div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>5</span></div>
-</section>
-
-<!-- ============ 6. BOOTH BIGGER ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 01 | Booth</span>
-    <h2 class="title">Front row deserves real presence</h2>
-    <p class="subtitle">The entry point booth needs to be bigger than last year</p>
-    <div class="cols" style="margin-top:18px;align-items:flex-start">
-      <div style="flex:1.05">
-        <svg viewBox="0 0 560 400" style="width:100%;background:#fff;border-radius:12px;box-shadow:0 6px 22px rgba(10,25,90,.18)">
-          <rect x="60" y="34" width="440" height="26" rx="4" fill="#0828B2"/>
-          <text x="280" y="52" text-anchor="middle" fill="#93EAFF" font-family="Trebuchet MS" font-weight="bold" font-size="15">BACKDROP: synvert xgeeks, a Synvert GL Company</text>
-          <rect x="84" y="84" width="150" height="92" rx="6" fill="#12275e"/>
-          <rect x="92" y="92" width="134" height="70" rx="3" fill="#43A1F7"/>
-          <text x="159" y="131" text-anchor="middle" fill="#fff" font-family="Trebuchet MS" font-weight="bold" font-size="13">LARGE SCREEN</text>
-          <text x="159" y="196" text-anchor="middle" fill="#7d88a8" font-family="Calibri" font-size="12">Showreel + cases</text>
-          <rect x="352" y="104" width="92" height="60" rx="6" fill="#12275e"/>
-          <rect x="358" y="110" width="80" height="42" rx="3" fill="#2FBFAE"/>
-          <text x="398" y="136" text-anchor="middle" fill="#fff" font-family="Trebuchet MS" font-weight="bold" font-size="11">SCREEN 2</text>
-          <text x="398" y="182" text-anchor="middle" fill="#7d88a8" font-family="Calibri" font-size="12">Raffle + photos</text>
-          <rect x="70" y="240" width="190" height="64" rx="8" fill="#2FBFAE"/>
-          <rect x="112" y="256" width="106" height="32" rx="5" fill="#fff"/>
-          <text x="165" y="277" text-anchor="middle" fill="#0828B2" font-family="Trebuchet MS" font-weight="bold" font-size="13">TABLE 1</text>
-          <rect x="300" y="240" width="190" height="64" rx="8" fill="#2FBFAE"/>
-          <rect x="342" y="256" width="106" height="32" rx="5" fill="#fff"/>
-          <text x="395" y="277" text-anchor="middle" fill="#0828B2" font-family="Trebuchet MS" font-weight="bold" font-size="13">TABLE 2</text>
-          <path d="M 30 386 L 530 386" stroke="#D62293" stroke-width="3" stroke-dasharray="10 7"/>
-          <path d="M 500 386 l 18 0 -9 -12 z" fill="#D62293" transform="rotate(90 509 380)"/>
-          <text x="280" y="374" text-anchor="middle" fill="#D62293" font-family="Trebuchet MS" font-weight="bold" font-size="14">ATTENDEE FLOW FROM THE ENTRANCE STAIRS</text>
-        </svg>
-        <div class="caption">Working sketch, to refine with the venue</div>
-      </div>
-      <div style="flex:1">
-        <ul class="b" style="margin-top:6px">
-          <li><b>Two tables</b> instead of one: more surface for demos, merch and conversations without blocking flow</li>
-          <li><b>Possibly two screens:</b> one large and one small, running different content at the same time</li>
-          <li>Large screen: <b>showreel, client stories, hiring</b>. Small screen: <b>raffle, photo wall, games</b></li>
-          <li>Goal: a booth that reads as <span class="hl">the host's booth</span>, not one more sponsor stand</li>
-        </ul>
-        <div class="card-pink" style="margin-top:14px;padding:14px 20px">Open with the venue: confirm the exact footprint we can take at the entrance position.</div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>6</span></div>
-</section>
-
-<!-- ============ 7. BOOTH DYNAMICS ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 01 | Booth</span>
-    <h2 class="title">Booth dynamics: give people a reason to stop</h2>
-    <p class="subtitle">Traffic is guaranteed by the location. Engagement is up to us</p>
-    <div class="grid3" style="margin-top:24px">
-      <div class="card-blue obj-card">
-        <h3>📸 Instax corner</h3>
-        <p>Instant camera with a branded xgeeks photo frame. We post the photos on our social channels and <b style="color:#93EAFF">tag the people in them</b>, so they reshare and amplify us to their own networks.</p>
-      </div>
-      <div class="card-blue obj-card">
-        <h3>🎮 Games for giveaways</h3>
-        <p>Quick games at the booth with merch as prizes. Last year's raffle worked. This year we can go bigger: a wheel of fortune, a leaderboard challenge, or a claw-style pick.</p>
-      </div>
-      <div class="card-blue obj-card">
-        <h3>🎁 Merch and giveaways</h3>
-        <p>Tiered swag: cheap high-volume items for everyone, plus a few desirable prizes that make people play and stay.</p>
-      </div>
-    </div>
-    <div class="card-pink" style="margin-top:24px">
-      <b style="color:var(--pink);font-family:'Trebuchet MS',sans-serif;font-size:18px">Open questions for the team</b>
-      <ul class="b" style="margin-top:10px;margin-bottom:0">
-        <li style="margin-bottom:6px">What <b>budget</b> do we have for merch and giveaways?</li>
-        <li style="margin-bottom:0">Can we run a <b>wheel of fortune, a game, or something similar</b>? Who builds and runs it?</li>
-      </ul>
-    </div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>7</span></div>
-</section>
-
-<!-- ============ 8. VENUE BRANDING PRINCIPLE ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 02 | Venue branding</span>
-    <h2 class="title">Every unsold asset becomes ours</h2>
-    <p class="subtitle">The principle: any branding asset we planned to sell to sponsors and do not sell, synvert xgeeks uses</p>
-    <div class="grid3" style="margin-top:22px">
-      <div class="card-pink pillar-card"><h3 style="margin-top:0">Side room naming</h3><p>A parallel sessions room carries our name on the agenda, the signage and every session announcement.</p></div>
-      <div class="card-pink pillar-card"><h3 style="margin-top:0">Lounge naming</h3><p>The chill-out area on Piso 0 becomes the xgeeks Lounge. Details on the next slide.</p></div>
-      <div class="card-pink pillar-card"><h3 style="margin-top:0">Wifi network</h3><p>Network name and password are ours, announced at the opening session and displayed across the venue.</p></div>
-      <div class="card-pink pillar-card"><h3 style="margin-top:0">Lanyards</h3><p>Our logo around every neck, in every hallway conversation and every photo, for two full days.</p></div>
-      <div class="card-pink pillar-card"><h3 style="margin-top:0">Barista and coffee</h3><p>A barista serves coffee all day, every day. If no sponsor closes it, xgeeks sponsors it.</p></div>
-      <div class="card-pink pillar-card"><h3 style="margin-top:0">Sponsor room + water</h3><p>The foyer entrance sign and the water bottles both carry synvert xgeeks if unsold.</p></div>
-    </div>
-    <div class="banner" style="margin-top:22px;font-size:18px">Decision point: on the sponsor sales deadline, we claim whatever is left. <span class="c">No asset goes unbranded.</span></div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>8</span></div>
-</section>
-
-<!-- ============ 9. LOUNGE ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 02 | Venue branding</span>
-    <h2 class="title">The xgeeks Lounge</h2>
-    <p class="subtitle">Piso 0, the pink area with the poufs, where everyone goes to breathe between sessions</p>
-    <div class="cols" style="margin-top:16px;align-items:flex-start">
-      <div style="flex:1.25">
-        <div class="imgbox" style="height:330px"><img src="assets/plan-piso0-lounge-zoom.png" alt="Floor plan Piso 0 with lounge highlighted" style="object-fit:contain;background:#fff"></div>
-        <div class="caption">Official venue plan, Piso 0. Highlighted: the lounge area with sofas and poufs.</div>
-      </div>
-      <div style="flex:1">
-        <ul class="b" style="margin-top:4px">
-          <li>There will be <b>no plaque</b> with the room name. If we want the name to exist, <span class="hl">we create the visual asset ourselves</span></li>
-          <li>Options to spread the name around:</li>
-        </ul>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
-          <div class="card-blue" style="padding:12px 16px 12px 22px"><b>Freestanding totem</b><div style="color:#bcd4f7;font-size:13.5px;margin-top:3px">"xgeeks Lounge" at the area entrance</div></div>
-          <div class="card-blue" style="padding:12px 16px 12px 22px"><b>Hanging banner</b><div style="color:#bcd4f7;font-size:13.5px;margin-top:3px">Visible along the curved concourse</div></div>
-          <div class="card-blue" style="padding:12px 16px 12px 22px"><b>Rollups</b><div style="color:#bcd4f7;font-size:13.5px;margin-top:3px">One at each end of the lounge</div></div>
-          <div class="card-blue" style="padding:12px 16px 12px 22px"><b>Branded cushions</b><div style="color:#bcd4f7;font-size:13.5px;margin-top:3px">Logo on the poufs people sit on</div></div>
-        </div>
-        <div class="card-pink" style="margin-top:12px;padding:12px 18px;font-size:15px"><b style="color:var(--blue)">Suggestion:</b> totem at the entrance + branded cushions. One anchors the name, the other lands in every photo.</div>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>9</span></div>
-</section>
-
-<!-- ============ 10. WIFI / LANYARD / SIDE ROOM ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 02 | Venue branding</span>
-    <h2 class="title">The assets everyone touches</h2>
-    <p class="subtitle">Wifi, lanyards and a room with our name on it</p>
-    <div class="grid3" style="margin-top:24px;align-items:start">
-      <div>
-        <div class="mock-sign">
-          <div style="font-size:15px;color:#93EAFF;letter-spacing:2px">WIFI</div>
-          <div style="font-size:22px;font-weight:700;margin-top:10px">synvert-xgeeks</div>
-          <div style="border-top:1px solid rgba(255,255,255,.3);margin-top:14px;padding-top:12px;font-size:14px;color:#bcd4f7">password</div>
-          <div style="font-size:18px;font-weight:700">wegrowcloudnative</div>
-        </div>
-        <ul class="b" style="margin-top:14px"><li style="font-size:15px">Announced at the opening session and displayed across the whole venue. Everyone types our name on day one</li></ul>
-      </div>
-      <div>
-        <div class="mock-sign" style="background:var(--pink)">
-          <div style="font-size:15px;letter-spacing:2px;color:#ffd6ef">LANYARDS</div>
-          <div style="font-size:20px;font-weight:700;margin-top:10px">synvert xgeeks<br>around every neck</div>
-        </div>
-        <ul class="b" style="margin-top:14px"><li style="font-size:15px">500+ attendees wear our logo for two days. It appears in every photo, post and video from the event</li></ul>
-      </div>
-      <div>
-        <div class="mock-sign">
-          <div style="font-size:15px;color:#93EAFF;letter-spacing:2px">SIDE ROOM</div>
-          <div style="font-size:20px;font-weight:700;margin-top:10px">The synvert xgeeks Room</div>
-          <div style="font-size:13.5px;color:#bcd4f7;margin-top:10px">on the agenda, the app and the door</div>
-        </div>
-        <ul class="b" style="margin-top:14px"><li style="font-size:15px">Every parallel session in that room is announced with our name, both days</li></ul>
-      </div>
-    </div>
-  </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>10</span></div>
-</section>
-
-<!-- ============ 11. BARISTA ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 02 | Venue branding</span>
-    <h2 class="title">Coffee, the busiest spot in any conference</h2>
-    <p class="subtitle">A barista serves coffee all day, every day. If no sponsor closes it, xgeeks sponsors it</p>
-    <div class="cols" style="margin-top:18px;align-items:flex-start">
-      <div style="width:270px;flex:none;display:flex;justify-content:center">
-        <div class="rollup">
-          <div style="font-size:13px;letter-spacing:2px;color:#93EAFF">COFFEE CORNER</div>
-          <div>
-            <div style="font-size:34px;font-weight:700;line-height:1.15">xpresso<br>yourself.</div>
-            <div style="margin-top:14px;font-size:15px;color:#bcd4f7">Coffee sponsored by</div>
-            <div style="font-size:20px;font-weight:700">synvert <span style="color:#93EAFF">xgeeks</span></div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l">
+            <ul class="b">
+              <li><b>2026 is the landmark edition.</b> KCD Porto joins forces with DevOps Days Portugal, and synvert xgeeks is the legal entity behind both.</li>
+              <li><b>500+ attendees, 150+ companies, 50+ speakers and 20+ sponsors</b> will watch how the host shows up. We are not one more booth in the foyer.</li>
+              <li><b>The whole venue is our stage:</b> the foyer is a mandatory passage area, the lounge, the rooms and the coffee are ours to brand.</li>
+              <li>This deck is the plan for how we show up: <span class="hl">booth, venue branding and the CTO's Dinner</span>.</li>
+            </ul>
+            <div class="grid3 mt">
+              <div class="card-blue"><h3>Brand <span class="c">exposure</span></h3><p class="ts">Visible in every corner of the venue, on stage, on screens and around every neck.</p></div>
+              <div class="card-blue"><h3>Business <span class="c">development</span></h3><p class="ts">Qualified conversations with decision-makers from 150+ companies, on our home turf.</p></div>
+              <div class="card-blue"><h3>Hiring, <span class="c">where relevant</span></h3><p class="ts">500+ engineers and architects seeing us as the employer of choice in Cloud Native.</p></div>
+            </div>
           </div>
-          <div style="font-size:12px;color:#8fa0c8">a Synvert GL Company</div>
+          <div class="col-r stack">
+            <div class="imgbox grow" style="height:24cqw"><img src="assets/stage-keynote-2025.jpg" alt="Keynote at KCD Porto 2025 with the KCD branding on stage"></div>
+            <div class="banner">Everyone coming from <span class="c">GL, Hitachi and Synvert</span> has to walk in and feel that this conference is effectively ours.</div>
+          </div>
         </div>
       </div>
-      <div style="flex:1">
-        <ul class="b" style="margin-top:2px">
-          <li>The barista corner has a <b>constant queue</b>: highest dwell time anywhere in the venue</li>
-          <li>Package includes a <b>rollup at the coffee point</b> and branding on the table</li>
-          <li>We make the rollup memorable with <span class="hl">a good pun</span>. Options:</li>
-        </ul>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px">
-          <div class="card-pink" style="padding:12px 16px;font-size:15.5px"><b style="color:var(--pink)">xpresso yourself.</b><br><span style="font-size:13.5px;color:#7d88a8">short, ours, on brand</span></div>
-          <div class="card-pink" style="padding:12px 16px;font-size:15.5px"><b style="color:var(--blue)">Kubernetes runs on containers. Geeks run on coffee.</b></div>
-          <div class="card-pink" style="padding:12px 16px;font-size:15.5px"><b style="color:var(--blue)">High availability espresso. Zero downtime.</b></div>
-          <div class="card-pink" style="padding:12px 16px;font-size:15.5px"><b style="color:var(--blue)">Great coffee, like great platforms, needs a solid pipeline.</b></div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">2</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. KEY NUMBERS ===================== -->
+<section class="slide" id="s3" aria-label="The numbers we are playing for">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <h2>The numbers we are playing for</h2>
+        <p class="sub">Three figures the whole team should know by heart</p>
+      </div>
+      <div class="body">
+        <div class="grid3">
+          <div class="card-blue stat"><div class="n">10+</div><div class="l">Sponsors</div><div class="s">Companies exhibiting inside our event, next to our booth. We are the host of all of them.</div></div>
+          <div class="card-blue stat"><div class="n">20-30</div><div class="l">Qualified conversations</div><div class="s">Decision-makers from the 150+ companies in the room, out of 500+ attendees. The reach figure in the KCD Porto 2026 business case.</div></div>
+          <div class="card-blue stat" style="background:var(--pink)"><div class="n" style="color:#fff">10+</div><div class="l">Qualified leads</div><div class="s" style="color:#ffe0f1">Our target from the whole event: booth, lounge, hallway and the CTO's Dinner combined.</div></div>
         </div>
+        <div class="mt card-white">
+          <p class="small" style="margin-bottom:.8cqw;font-family:var(--font-head);letter-spacing:.1em;text-transform:uppercase">How the funnel reads</p>
+          <div class="funnel">
+            <div class="step"><div class="n">500+</div><div class="l">attendees over two days</div></div>
+            <div class="step"><div class="n">150+</div><div class="l">companies represented</div></div>
+            <div class="step"><div class="n">20-30</div><div class="l">qualified conversations</div></div>
+            <div class="step goal"><div class="n">10+</div><div class="l">qualified leads for synvert xgeeks</div></div>
+          </div>
+        </div>
+        <p class="small mt" style="text-align:center">Sources: KCD Porto x DevOps Days 2026 sponsorship prospectus and the KCD Porto 2026 business case (CEO presentation).</p>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">3</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. THREE PILLARS ===================== -->
+<section class="slide" id="s4" aria-label="Three pillars">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <h2>Three pillars to get there</h2>
+        <p class="sub">Everything in this plan falls under one of these</p>
+      </div>
+      <div class="body">
+        <div class="grid3 grow">
+          <div class="card-pink stack" style="padding:1.2cqw">
+            <div class="imgbox" style="height:19cqw"><img src="assets/booth-2025.jpg" alt="The synvert xgeeks booth at KCD Porto 2025"></div>
+            <div><span class="chip pink">01</span> <h3 style="display:inline;margin-left:.5cqw">The Booth</h3></div>
+            <p>Our stand sits at the entrance of the venue. Bigger, rebranded, with two tables, two screens and a reason to stop.</p>
+          </div>
+          <div class="card-pink stack" style="padding:1.2cqw">
+            <div class="imgbox" style="height:19cqw"><img src="assets/venue-foyer.jpg" alt="The sponsor foyer at Super Bock Arena"></div>
+            <div><span class="chip pink">02</span> <h3 style="display:inline;margin-left:.5cqw">Branding across the venue</h3></div>
+            <p>Check-in, rooms, lounge, wifi, lanyards, coffee, water and merch. Every sponsor asset we do not sell, we use ourselves.</p>
+          </div>
+          <div class="card-pink stack" style="padding:1.2cqw">
+            <div class="imgbox" style="height:19cqw"><img src="assets/venue-banquet.jpg" alt="Banquet room set for dinner"></div>
+            <div><span class="chip pink">03</span> <h3 style="display:inline;margin-left:.5cqw">CTO's Dinner</h3></div>
+            <p>The official welcome dinner on day one, sponsored by synvert xgeeks. The highest-value room of the whole event.</p>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">4</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. DIVIDER: BOOTH ===================== -->
+<section class="slide" id="s5" aria-label="Pillar 01, the booth">
+  <div class="frame divider">
+    <div class="inner">
+      <div class="bg"><img src="assets/venue-foyer.jpg" alt=""></div>
+      <div class="txt">
+        <span class="tag">Pillar 01</span>
+        <div class="k">01</div>
+        <h2>The Booth</h2>
+        <p>Our spot is the entrance door into the venue. It is the ticket in.</p>
       </div>
     </div>
   </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>11</span></div>
 </section>
 
-<!-- ============ 12. SPONSOR ROOM + WATER ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 02 | Venue branding</span>
-    <h2 class="title">The sponsor room carries our name</h2>
-    <p class="subtitle">The foyer is a mandatory passage area. We put our name on its door</p>
-    <div class="cols" style="margin-top:18px;align-items:flex-start">
-      <div style="flex:1.1">
-        <div class="imgbox" style="height:250px"><img src="assets/venue-foyer.jpg" alt="Sponsor foyer"></div>
-        <div class="mock-sign" style="margin-top:14px;padding:20px 24px">
-          <div style="font-size:21px;font-weight:700;letter-spacing:1px;line-height:1.35">SPONSOR ROOM<br><span style="font-size:15px;color:#93EAFF;letter-spacing:2px">BROUGHT TO YOU BY</span><br>SYNVERT XGEEKS</div>
-        </div>
-        <div class="caption">Sign placed at the foyer entrance</div>
+<!-- ===================== 6. THE SPOT ===================== -->
+<section class="slide" id="s6" aria-label="Our spot is the entrance door">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 01 | Booth</span>
+        <h2>Our spot is the entrance door</h2>
+        <p class="sub">Piso -1: the stand marked "Stand KCD", right at the bottom of the entrance stairs</p>
       </div>
-      <div style="flex:1">
-        <ul class="b" style="margin-top:4px">
-          <li>Every attendee crosses the foyer to reach the <b>auditorium and side rooms</b></li>
-          <li>All 20+ sponsors exhibit inside a room that is <span class="hl">brought to them by us</span></li>
-        </ul>
-        <div class="card-blue" style="margin-top:16px">
-          <h3 style="color:#fff;font-size:19px;margin-bottom:8px">💧 Water bottles</h3>
-          <p style="color:#d7e5fb;font-size:15px;line-height:1.5">If the water sponsorship stays unsold, the bottles keep the conference design and add one line: <b style="color:#93EAFF">sponsored by synvert xgeeks</b>. Hydration with our name on it, in everyone's hand and every session photo.</p>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l">
+            <div class="imgbox contain" style="height:34.5cqw"><img src="assets/plan-piso-1-stand-zoom.png" alt="Official floor plan, Piso -1, with the Stand KCD highlighted directly below the entrance stairs and cloakroom"></div>
+            <p class="caption">Official venue plan, Piso -1 (05/2026). Highlighted: Stand KCD, 4x3m.</p>
+          </div>
+          <div class="col-r stack">
+            <ul class="b">
+              <li>Attendees come down the <b>entrance stairs</b>, pass the <b>cloakroom</b> and land directly in front of our stand.</li>
+              <li>It is the <b>first and the last thing</b> every single attendee sees, on both days.</li>
+              <li>The foyer is a <b>mandatory passage</b> to the auditorium and the side rooms. Platinum and Gold sponsors sit behind and beside us.</li>
+              <li>We hold the <b>best position in the venue</b>. It has to look like the host's booth, not one more sponsor stand.</li>
+            </ul>
+            <div class="banner" style="margin-top:auto">This spot is practically the entrance door.<br><span class="c">It is the ticket in.</span></div>
+            <div class="imgbox contain" style="height:10.5cqw"><img src="assets/plan-piso-1-full.png" alt="Full Piso -1 plan for context"></div>
+          </div>
         </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">5</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. REUSE, REBRAND ===================== -->
+<section class="slide" id="s7" aria-label="Reuse smart, rebrand cheap">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 01 | Booth</span>
+        <h2>Reuse smart, print cheap</h2>
+        <p class="sub">Last year's booth is a strong base. We rebrand it instead of buying everything new</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l">
+            <div class="imgbox anno" style="height:33.8cqw">
+              <img src="assets/booth-2025.jpg" alt="The xgeeks booth at KCD Porto 2025: dark backdrop with the synvert logo, TV on a stand, table with a synvert xgeeks front panel">
+              <div class="box" style="left:35.5%;top:3%;width:35%;height:10%"></div>
+              <div class="lbl" style="left:36%;top:14%">1. Cover strip: synvert xgeeks, a Synvert GL Company</div>
+              <div class="box" style="left:4.5%;top:21%;width:28%;height:37%"></div>
+              <div class="lbl" style="left:5%;top:59.5%">2. New TV frame</div>
+              <div class="box" style="left:24%;top:47%;width:32%;height:26%"></div>
+              <div class="lbl" style="left:24.5%;top:74.5%">3. New front panels, two tables</div>
+            </div>
+            <p class="caption">Our booth at KCD Porto 2025, foyer of the Super Bock Arena</p>
+          </div>
+          <div class="col-r stack">
+            <div class="card-white">
+              <h3><span class="chip pink">1</span> Reuse the backdrop</h3>
+              <p>The structure and the print still work. We print a <b>cover strip</b> over the part that says "synvert" and place the new identity there: <span class="hl">synvert xgeeks, a Synvert GL Company</span>.</p>
+            </div>
+            <div class="card-white">
+              <h3><span class="chip pink">2</span> New TV frame, cheaper</h3>
+              <p>New print, new design, simple structure, low cost.</p>
+            </div>
+            <div class="card-white">
+              <h3><span class="chip pink">3</span> New table front panels for <b>two</b> tables</h3>
+              <p>Not one. Two panels sized for two tables, new print, new design, low cost.</p>
+            </div>
+            <div class="banner pink sm">Principle: spend on presence and dynamics, not on rebuying structures that still work.</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">6</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. BIGGER BOOTH ===================== -->
+<section class="slide" id="s8" aria-label="Front row deserves real presence">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 01 | Booth</span>
+        <h2>Front row deserves real presence</h2>
+        <p class="sub">The entry point booth needs to be bigger than last year</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l">
+            <div class="sketch">
+              <div class="backdrop">synvert <span>xgeeks</span><small>a Synvert GL Company</small></div>
+              <div class="row">
+                <div class="screen large"><b>Large screen</b>showreel, client stories, open roles</div>
+                <div class="screen small"><b>Small screen</b>raffle, photo wall, game</div>
+                <div class="hitable">High table<br>+ hook</div>
+              </div>
+              <div class="tables">
+                <div class="table">Table 1<small>demos, conversations</small></div>
+                <div class="table">Table 2<small>merch, Instax, game</small></div>
+              </div>
+              <div class="flow"><span>Attendee flow from the entrance stairs</span><div class="line"></div></div>
+            </div>
+            <p class="caption">Working sketch, front view. To refine with the venue.</p>
+          </div>
+          <div class="col-r stack">
+            <ul class="b">
+              <li><b>Two tables</b> instead of one: more surface for demos, merch and conversations without blocking the flow.</li>
+              <li><b>Possibly two screens</b>, one large and one small, running <b>different content</b> at the same time: the large one for the showreel and client stories, the small one for the raffle, photo wall and games.</li>
+              <li>A <b>high table with a conversation hook</b> printed on it, so people know what to talk to us about (next slide).</li>
+              <li>Goal: a booth that reads as <span class="hl">the host's booth</span>, with real presence at the front.</li>
+            </ul>
+            <div class="card-pink" style="margin-top:auto">
+              <p><b>Open with the venue:</b> the plan marks 4x3m for Stand KCD. As the organiser we can widen the footprint or use the space in front of it. Confirm the exact size before we order prints.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">7</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9. HIGH TABLE HOOK ===================== -->
+<section class="slide" id="s9" aria-label="A hook on the high table">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 01 | Booth</span>
+        <h2>A conversation hook on the high table</h2>
+        <p class="sub">One line printed on the table top tells people what to talk to us about. Pick one per angle, or one per table</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-r" style="flex:.62;display:flex;align-items:center;justify-content:center">
+            <div class="hightable">
+              <div class="top" id="hook-booth-top">We built this event. Let's build something with you.<span class="lo">synvert xgeeks</span></div>
+              <div class="leg"></div><div class="base"></div>
+            </div>
+          </div>
+          <div class="col-l" style="flex:1">
+            <div class="grid2">
+              <div>
+                <h3 style="font-family:var(--font-head);color:var(--blue);font-size:var(--t3);margin-bottom:.8cqw"><span class="chip">Business angle</span></h3>
+                <ul class="opts" id="opts-booth-business">
+                  <li data-n="A">Let's chat about how we can help you grow your business<span class="note">Original proposal</span></li>
+                  <li data-n="B" class="rec">We built this event. Let's build something with you.<span class="note">Suggested: the event itself is the proof point</span></li>
+                  <li data-n="C">Cloud, data, AI. Tell us what's slowing you down.</li>
+                  <li data-n="D">Need more engineers on your roadmap? Let's talk.</li>
+                </ul>
+              </div>
+              <div>
+                <h3 style="font-family:var(--font-head);color:var(--blue);font-size:var(--t3);margin-bottom:.8cqw"><span class="chip">Technical angle</span></h3>
+                <ul class="opts" id="opts-booth-technical">
+                  <li data-n="A">Let's grab a coffee and talk engineering<span class="note">Original proposal</span></li>
+                  <li data-n="B" class="rec">Bring your architecture diagram. We'll bring the questions.<span class="note">Suggested: peer to peer, no coffee promised at the booth</span></li>
+                  <li data-n="C">Strong opinions, loosely held. Come talk Kubernetes.</li>
+                  <li data-n="D">Swap on-call war stories with people who've been paged too.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="small mt">Suggested: one hook per table, business angle on the table facing the stairs, technical angle on the table facing the foyer.</p>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">8</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 10. BOOTH DYNAMICS ===================== -->
+<section class="slide" id="s10" aria-label="Booth dynamics">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 01 | Booth</span>
+        <h2>Booth dynamics: a reason to stop</h2>
+        <p class="sub">Traffic is guaranteed by the location. Engagement is up to us</p>
+      </div>
+      <div class="body">
+        <div class="grid3">
+          <div class="card-blue">
+            <h3><span class="c">Instax</span> corner</h3>
+            <p>Instant camera with an <b>xgeeks photo frame</b>. Photos go to our social channels <b>tagging the people in them</b>, so they reshare.</p>
+          </div>
+          <div class="card-blue">
+            <h3>Games for <span class="c">giveaways</span></h3>
+            <p>Quick games with merch as prizes. Last year's raffle worked. This year: a <b>wheel of fortune</b>, a leaderboard challenge or a claw-style pick.</p>
+          </div>
+          <div class="card-blue">
+            <h3>Merch and <span class="c">giveaways</span></h3>
+            <p>Cheap high-volume items for everyone, plus a few desirable prizes worth playing for. Also feeds the welcome kit, lanyards and bottles.</p>
+          </div>
+        </div>
+        <div class="card-pink mt">
+          <h3>Open questions for the team</h3>
+          <div class="grid2" style="gap:.6cqw 2cqw">
+            <ul class="b" style="margin:0">
+              <li>What <b>budget</b> do we have for merch and giveaways?</li>
+              <li>Can we run a <b>wheel of fortune, a game or something similar</b>? Who builds it, who runs it on the day?</li>
+            </ul>
+            <ul class="b" style="margin:0">
+              <li>Who owns the <b>Instax flow</b>: shooting, posting, tagging?</li>
+              <li>Which prizes are worth playing for, and how many of each?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="photo-strip mt" style="grid-template-columns:repeat(3,1fr)">
+          <div class="imgbox" style="height:6.8cqw"><img src="assets/aws-booth-2025.jpg" alt="Conversation at a sponsor booth, KCD Porto 2025"></div>
+          <div class="imgbox" style="height:6.8cqw"><img src="assets/komodor-booth-2025.jpg" alt="Demo at a sponsor booth, KCD Porto 2025"></div>
+          <div class="imgbox" style="height:6.8cqw"><img src="assets/lunch-2025.jpg" alt="Networking lunch at KCD Porto 2025"></div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">9</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 11. DIVIDER: VENUE ===================== -->
+<section class="slide" id="s11" aria-label="Pillar 02, branding across the venue">
+  <div class="frame divider">
+    <div class="inner">
+      <div class="bg"><img src="assets/venue-dome-exterior.jpg" alt=""></div>
+      <div class="txt">
+        <span class="tag">Pillar 02</span>
+        <div class="k">02</div>
+        <h2>Branding across the venue</h2>
+        <p>Every branding asset we do not sell to a sponsor, we use for ourselves.</p>
       </div>
     </div>
   </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>12</span></div>
 </section>
 
-<!-- ============ 13. CTO DINNER ============ -->
-<section class="slide">
-  <div class="pad">
-    <span class="tag">Pillar 03 | CTO's Dinner</span>
-    <h2 class="title">CTO's Dinner, sponsored by synvert xgeeks</h2>
-    <p class="subtitle">Day one, before the conference starts: the official welcome dinner on the agenda</p>
-    <div class="cols" style="margin-top:20px;align-items:flex-start">
-      <div style="flex:1.1">
-        <ul class="b" style="margin-top:4px">
-          <li>The <b>highest-value people in one room</b> before the doors even open: CTOs, VPs and decision-makers</li>
-          <li>It sits on the <b>official agenda</b> as the welcome dinner of the conference, with our name attached</li>
-          <li>As hosts, <b>we set the table:</b> guest list, seating and warm introductions are ours to design</li>
-          <li>For GL, Hitachi and Synvert stakeholders it is the clearest proof that <span class="hl">this event is ours</span></li>
-        </ul>
+<!-- ===================== 12. PRINCIPLE + ASSET MAP ===================== -->
+<section class="slide" id="s12" aria-label="Every unsold asset becomes ours">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>Every unsold asset becomes ours</h2>
+        <p class="sub">The prospectus prices show what each asset is worth. Whatever is left at the sales deadline carries our name</p>
       </div>
-      <div style="flex:1">
-        <div class="grid2">
-          <div class="card-blue"><div class="stat-num">20-30</div><div class="stat-label">Qualified leads</div><div class="stat-sub">Target from the whole event</div></div>
-          <div class="card-blue"><div class="stat-num">2+</div><div class="stat-label">Upsell conversations</div><div class="stat-sub">Target clients at the event</div></div>
-          <div class="card-blue" style="grid-column:1 / -1"><div class="stat-label" style="margin-top:0">Why a dinner works</div><div class="stat-sub" style="font-size:14px;line-height:1.5;margin-top:6px">Relaxed setting, no booth noise, no competing talks. Just the organizers of the event breaking bread with the people they most want to talk to.</div></div>
+      <div class="body">
+        <div class="grid4">
+          <div class="card-pink"><h3>Check-in area</h3><p class="small">Banner or printed backdrop. The first thing everyone sees. Ours by right as the legal entity.</p><span class="chip ghost mt" style="margin-top:.7cqw">Not for sale</span></div>
+          <div class="card-pink"><h3>Side room naming</h3><p class="small">One parallel-sessions room carries our name on the agenda, the app and the door.</p><span class="chip mt" style="margin-top:.7cqw">EUR 1,000 value</span></div>
+          <div class="card-pink"><h3>Lounge naming</h3><p class="small">The chill-out area on Piso 0 becomes the xgeeks Lounge, with a high table and a hook.</p><span class="chip ghost mt" style="margin-top:.7cqw">New asset, ours</span></div>
+          <div class="card-pink"><h3>Wifi network</h3><p class="small">Network name and password are ours, announced at the opening and displayed across the venue.</p><span class="chip mt" style="margin-top:.7cqw">EUR 1,500 value</span></div>
+          <div class="card-pink"><h3>Lanyards</h3><p class="small">Our logo around every neck, in every hallway conversation and every photo, for two days.</p><span class="chip mt" style="margin-top:.7cqw">EUR 2,000 value</span></div>
+          <div class="card-pink"><h3>Barista and coffee</h3><p class="small">A barista serves coffee all day, every day. If no sponsor closes it, xgeeks sponsors it.</p><span class="chip mt" style="margin-top:.7cqw">EUR 1,500 value</span></div>
+          <div class="card-pink"><h3>Sponsor room (foyer)</h3><p class="small">"Sponsor room brought to you by synvert xgeeks" at the foyer entrance.</p><span class="chip mt" style="margin-top:.7cqw">EUR 2,000 value</span></div>
+          <div class="card-pink"><h3>Water bottles</h3><p class="small">Conference design plus "sponsored by synvert xgeeks" if the bottles stay unsold.</p><span class="chip ghost mt" style="margin-top:.7cqw">Swag-tier asset</span></div>
+        </div>
+        <div class="banner mt" style="margin-top:auto">Decision point: at the sponsor sales deadline we claim whatever is left. <span class="c">No asset goes unbranded.</span></div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">10</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 13. CHECK-IN ===================== -->
+<section class="slide" id="s13" aria-label="Check-in area">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>Check-in: the first thing people see</h2>
+        <p class="sub">A banner or printed backdrop behind registration, positioning us as the legal entity behind KCD Porto</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l stack">
+            <div class="sign" id="sign-checkin">
+              <div class="eyebrow">Welcome to KCD Porto x DevOps Days Portugal 2026</div>
+              <div class="big" id="sign-checkin-text">KCD Porto and DevOps Days Portugal<br><span class="c">Organised by synvert xgeeks</span></div>
+              <div class="brand">synvert <span>xgeeks</span></div>
+              <div class="tiny">a Synvert GL Company</div>
+            </div>
+            <ul class="b">
+              <li>Behind the registration desks, in every arrival photo and every badge-pickup queue.</li>
+              <li>Keep it <b>subtle if needed</b>: the KCD and DevOps Days logos stay the heroes, our line sits underneath.</li>
+              <li>Same print can move to the <b>press wall</b> in the foyer after the morning rush.</li>
+            </ul>
+          </div>
+          <div class="col-r">
+            <h3 style="font-family:var(--font-head);color:var(--blue);font-size:var(--t3);margin-bottom:.8cqw">Wording options, from subtle to explicit</h3>
+            <ul class="opts" id="opts-checkin">
+              <li data-n="A">Welcome to KCD Porto and DevOps Days Portugal / A synvert xgeeks event<span class="note">Subtle</span></li>
+              <li data-n="B" class="rec">KCD Porto and DevOps Days Portugal / Organised by synvert xgeeks<span class="note">Balanced, suggested for the backdrop</span></li>
+              <li data-n="C">synvert xgeeks / The company behind KCD Porto and DevOps Days Portugal<span class="note">Direct</span></li>
+              <li data-n="D">synvert xgeeks, the legal entity behind KCD Porto and DevOps Days Portugal<span class="note">Explicit, the original proposal</span></li>
+            </ul>
+            <p class="small mt">"/" marks a line break on the print. The subtle version works if the KCD and DevOps Days logos must stay the heroes of the backdrop.</p>
+          </div>
         </div>
       </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">11</span></div>
     </div>
-    <div class="banner" style="margin-top:22px">Business development and stakeholder trust, <span class="c">closed over dinner before day one begins.</span></div>
   </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>13</span></div>
 </section>
 
-<!-- ============ 14. OPEN DECISIONS ============ -->
-<section class="slide">
-  <div class="pad">
-    <h2 class="title">Open decisions and next steps</h2>
-    <p class="subtitle">What the team needs to close, and who owns each piece</p>
-    <table class="dec" style="margin-top:20px">
-      <tr><th style="width:30%">Decision</th><th>Next step</th><th style="width:14%">Owner</th></tr>
-      <tr><td>Booth size and layout</td><td>Confirm footprint with the venue: two tables, one or two screens</td><td class="own">TBD</td></tr>
-      <tr><td>Print new vs reuse</td><td>Quote the cover strip, TV frame and table front panel with the new design</td><td class="own">TBD</td></tr>
-      <tr><td>Giveaway budget</td><td>Set the amount, then choose: wheel of fortune, game, or raffle</td><td class="own">TBD</td></tr>
-      <tr><td>Unsold assets we claim</td><td>Track sponsor sales; claim lounge, wifi, lanyards, barista, foyer, water at the deadline</td><td class="own">TBD</td></tr>
-      <tr><td>Booth dynamics</td><td>Instax flow: who shoots, who posts, who tags</td><td class="own">TBD</td></tr>
-      <tr><td>CTO's Dinner</td><td>Venue, budget, guest list and agenda slot</td><td class="own">TBD</td></tr>
-    </table>
-    <div class="banner" style="margin-top:22px">All eyes on us. <span class="c">Let's make it ours.</span></div>
+<!-- ===================== 14. SIDE ROOM, WIFI, LANYARDS ===================== -->
+<section class="slide" id="s14" aria-label="Side room, wifi and lanyards">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>The assets everyone touches</h2>
+        <p class="sub">A room with our name, a wifi everyone types, a lanyard everyone wears</p>
+      </div>
+      <div class="body">
+        <div class="grid3 grow">
+          <div class="stack">
+            <div class="sign">
+              <div class="eyebrow">Side room naming</div>
+              <div class="big">The <span class="c">synvert xgeeks</span> Room</div>
+              <div class="tiny">Sala 1, parallel sessions and workshops</div>
+            </div>
+            <ul class="b">
+              <li>Every parallel session in that room is announced with our name, both days: agenda, app, door sign, session slides.</li>
+              <li>Pick the room with the most business-relevant track.</li>
+            </ul>
+          </div>
+          <div class="stack">
+            <div class="sign">
+              <div class="eyebrow">Wifi network</div>
+              <div class="big md" id="wifi-ssid">synvert-xgeeks</div>
+              <div class="tiny" style="margin-top:.9cqw">password (all lowercase, no spaces)</div>
+              <div class="big sm" id="wifi-pass"><span class="c">itworksonmycluster</span></div>
+            </div>
+            <ul class="b">
+              <li>Announced at the opening session and displayed across the venue. 500+ people type our name on day one and reconnect on day two.</li>
+              <li>Alternatives: <b>xgeeks-KCDPorto2026</b> / cloudnativeporto, or <b>synvert-xgeeks</b> / poweredbyxgeeks.</li>
+            </ul>
+          </div>
+          <div class="stack">
+            <div class="lanyard"><span>synvert xgeeks <i>|</i> synvert xgeeks <i>|</i> synvert xgeeks <i>|</i> synvert xgeeks <i>|</i> synvert xgeeks</span></div>
+            <div class="imgbox" style="height:11cqw"><img src="assets/team-2025.jpg" alt="The KCD Porto 2025 organising team wearing lanyards and synvert xgeeks t-shirts"></div>
+            <ul class="b">
+              <li><b>Lanyard sponsor:</b> our logo around every neck, in every hallway conversation and every photo, for two days.</li>
+              <li>Pairs with the welcome kit swag: our items in everyone's hands from minute one.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">12</span></div>
+    </div>
   </div>
-  <div class="foot"><span>synvert xgeeks | KCD Porto 2026</span><span>14</span></div>
 </section>
 
-</div></div>
+<!-- ===================== 15. THE LOUNGE ===================== -->
+<section class="slide" id="s15" aria-label="The xgeeks Lounge">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>The xgeeks Lounge</h2>
+        <p class="sub">Piso 0, the pink area with the sofas and the poufs, where everyone goes to breathe between sessions</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l">
+            <div class="imgbox contain" style="height:21cqw"><img src="assets/plan-piso0-lounge-zoom.png" alt="Official floor plan, Piso 0, with the lounge area of sofas and poufs highlighted"></div>
+            <p class="caption">Official venue plan, Piso 0 (05/2026). Highlighted: the lounge area with sofas and poufs, next to the Silver stands and coffee stations.</p>
+            <div class="card-pink mt">
+              <p><b>There will be no plaque with the room name.</b> If we want the name to exist, we create the visual asset that spreads it around ourselves.</p>
+              <p class="small mt" style="margin-top:.5cqw">Not on the list: branded cushions or logos on the poufs. Too expensive for what they add.</p>
+            </div>
+          </div>
+          <div class="col-r stack">
+            <div class="grid2" style="gap:.9cqw">
+              <div class="card-blue"><h3>Freestanding <span class="c">totem</span></h3><p class="ts">"xgeeks Lounge" at the entrance of the area. Anchors the name where people walk in.</p></div>
+              <div class="card-blue"><h3>Hanging <span class="c">banner</span></h3><p class="ts">Along the curved wall behind the sofas. Visible from the stairs and the whole concourse.</p></div>
+              <div class="card-blue"><h3><span class="c">Rollups</span></h3><p class="ts">One at each end of the area. Cheap, reusable at the next meetup.</p></div>
+              <div class="card-blue"><h3>Floor decals and <span class="c">table tents</span></h3><p class="ts">Arrows on the floor from the stairs, name cards on the coffee stations next to the sofas.</p></div>
+            </div>
+            <div class="card-white">
+              <h3>Name options</h3>
+              <p id="lounge-names"><b>xgeeks Lounge</b> &nbsp;|&nbsp; The xgeeks Living Room &nbsp;|&nbsp; The xgeeks Cooldown</p>
+              <p class="small mt" style="margin-top:.4cqw">Suggested: totem at the entrance plus one rollup at the far end. One anchors the name, the other lands in every photo taken on the sofas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">13</span></div>
+    </div>
+  </div>
+</section>
 
-<div id="hud"><b id="cur">1</b> / <span id="tot"></span></div>
-<div class="nav-hint">← → navigate &nbsp;|&nbsp; print to PDF for export</div>
+<!-- ===================== 16. LOUNGE HIGH TABLE ===================== -->
+<section class="slide" id="s16" aria-label="A high table in the lounge">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>A high table in the lounge, with a business hook</h2>
+        <p class="sub">The lounge sponsored by xgeeks: people sit down to rest, and we give them a reason to start a conversation</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-r" style="flex:.62;display:flex;align-items:center;justify-content:center">
+            <div class="hightable">
+              <div class="top long" id="hook-lounge-top">Take a seat, the coffee is on us. So is the honest advice.<span class="lo">xgeeks Lounge, sponsored by synvert xgeeks</span></div>
+              <div class="leg"></div><div class="base"></div>
+            </div>
+          </div>
+          <div class="col-l" style="flex:1">
+            <ul class="opts" id="opts-lounge">
+              <li data-n="A">Grab a coffee, take a seat, and let's talk about how we can grow your business<span class="note">Original proposal. 16 words: readable, but the smallest type of the set</span></li>
+              <li data-n="B" class="rec">Take a seat, the coffee is on us. So is the honest advice.<span class="note">Suggested: short, warm, business without the pitch</span></li>
+              <li data-n="C">The xgeeks Lounge, your agenda. Cloud, data, AI, or just a quiet coffee.</li>
+              <li data-n="D">Sit down with the people who run KCD Porto. Your roadmap, our experience, free coffee.</li>
+            </ul>
+            <ul class="b mt">
+              <li>Same high table format as the booth, so one print job covers both.</li>
+              <li>Someone from the team should be in the lounge during coffee breaks: the hook opens the door, a person walks through it.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">14</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 17. BARISTA ===================== -->
+<section class="slide" id="s17" aria-label="Barista and coffee">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>Coffee, the busiest spot in any conference</h2>
+        <p class="sub">A barista serves coffee all day, every day. If no sponsor closes it, xgeeks sponsors it</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-r" style="flex:.5;display:flex;align-items:center;justify-content:center">
+            <div class="rollup">
+              <div class="top">Coffee corner</div>
+              <div class="pun" id="rollup-pun">Low latte-ncy, high availability.</div>
+              <div class="by">Coffee sponsored by<b>synvert <span>xgeeks</span></b>a Synvert GL Company</div>
+            </div>
+          </div>
+          <div class="col-l" style="flex:1">
+            <ul class="b">
+              <li>The barista corner has a <b>constant queue</b>: the highest dwell time anywhere in the venue.</li>
+              <li>The package includes a <b>rollup at the coffee point</b> and branding on the table. We make the rollup memorable with a good pun.</li>
+            </ul>
+            <h3 style="font-family:var(--font-head);color:var(--blue);font-size:var(--t3);margin:.6cqw 0 .8cqw">Pun options for the rollup</h3>
+            <ul class="opts" id="opts-barista" style="grid-template-columns:1fr 1fr">
+              <li data-n="A" class="rec">Low latte-ncy, high availability.<span class="note">Suggested: instantly readable by the whole audience</span></li>
+              <li data-n="B">Coffee: the original continuous delivery.</li>
+              <li data-n="C">Open a pour request.</li>
+              <li data-n="D">kubectl get coffee. Status: Ready.</li>
+              <li data-n="E">Single or double? We say replicas: 2.</li>
+              <li data-n="F">xpresso yourself.<span class="note">Plays on the x of xgeeks</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">15</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 18. SPONSOR ROOM + WATER ===================== -->
+<section class="slide" id="s18" aria-label="Sponsor room and water bottles">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 02 | Venue branding</span>
+        <h2>The sponsor room carries our name</h2>
+        <p class="sub">The foyer is a mandatory passage area. We put our name on its door, and on the water in everyone's hand</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l stack">
+            <div class="imgbox" style="height:17cqw"><img src="assets/venue-foyer.jpg" alt="The foyer of the Super Bock Arena congress centre set up as a sponsor and networking area"></div>
+            <div class="sign">
+              <div class="eyebrow">Sign at the foyer entrance</div>
+              <div class="big">SPONSOR ROOM<br><span class="mid">BROUGHT TO YOU BY</span><br><span class="c">SYNVERT XGEEKS</span></div>
+            </div>
+          </div>
+          <div class="col-r stack">
+            <ul class="b">
+              <li>Every attendee crosses the foyer to reach the <b>auditorium and the side rooms</b>.</li>
+              <li>All 20+ sponsors exhibit inside a room that is <b>brought to them by us</b>. The sign says it at the door.</li>
+            </ul>
+            <div class="card-pink" style="display:flex;gap:1.6cqw;align-items:center;margin-top:auto">
+              <div class="bottle"><div class="shape"><div class="lbl">KCD Porto<br>x DevOps Days<br>2026<br><span class="c">sponsored by<br>synvert xgeeks</span></div></div></div>
+              <div>
+                <h3>Water bottles</h3>
+                <p>If the water sponsorship stays unsold, the bottles keep the <b>conference design</b> and add one line: <span class="hl">sponsored by synvert xgeeks</span>.</p>
+                <p class="small mt" style="margin-top:.5cqw">Hydration with our name on it, in every hand and every session photo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">16</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 19. DIVIDER: DINNER ===================== -->
+<section class="slide" id="s19" aria-label="Pillar 03, CTO's Dinner">
+  <div class="frame divider">
+    <div class="inner">
+      <div class="bg"><img src="assets/venue-banquet.jpg" alt=""></div>
+      <div class="txt">
+        <span class="tag">Pillar 03</span>
+        <div class="k">03</div>
+        <h2>CTO's Dinner</h2>
+        <p>Day one, before the conference starts. The welcome dinner on the official agenda, sponsored by synvert xgeeks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 20. CTO'S DINNER ===================== -->
+<section class="slide" id="s20" aria-label="Why the CTO's Dinner matters">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <span class="tag">Pillar 03 | CTO's Dinner</span>
+        <h2>CTO's Dinner, sponsored by synvert xgeeks</h2>
+        <p class="sub">The official welcome dinner of the conference, on day one, before the doors open</p>
+      </div>
+      <div class="body">
+        <div class="cols">
+          <div class="col-l">
+            <ul class="b">
+              <li>It goes on the <b>official agenda</b> as the welcome dinner of the conference, with our name attached as sponsor.</li>
+              <li><b>Business development:</b> the highest-value people of the event, CTOs, VPs and decision-makers, in one room before anyone has seen a booth. Relaxed setting, no competing talks, no queue.</li>
+              <li><b>As hosts, we set the table:</b> guest list, seating and warm introductions are ours to design. Curated intros are the shortest path to the 10+ leads target.</li>
+              <li><b>Stakeholders:</b> for GL, Hitachi and Synvert leadership it is the clearest proof that this event is ours. They arrive as guests of honour, not as visitors.</li>
+              <li>Sponsors' Platinum to Bronze packages include a "Sponsors and Special Guest Dinner" on day one. This is that dinner, and we are the host.</li>
+            </ul>
+          </div>
+          <div class="col-r stack">
+            <div class="imgbox" style="height:17cqw"><img src="assets/venue-banquet.jpg" alt="Round tables set for a dinner at the venue"></div>
+            <div class="grid2">
+              <div class="card-blue stat sm"><div class="n">Day 1</div><div class="l">Before the conference starts</div><div class="s">The first touchpoint of KCD Porto 2026 is ours.</div></div>
+              <div class="card-blue stat sm"><div class="n">10+</div><div class="l">Leads start here</div><div class="s">Seats are our best-qualified conversations of the event.</div></div>
+            </div>
+            <div class="banner sm">Business development and stakeholder trust, <span class="c">closed over dinner before day one begins.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">17</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 21. OPEN DECISIONS ===================== -->
+<section class="slide" id="s21" aria-label="Open decisions and next steps">
+  <div class="frame">
+    <div class="inner">
+      <img class="logo-corner" src="assets/kcd-logo-porto.png" alt="">
+      <div class="head">
+        <h2>Open decisions and next steps</h2>
+        <p class="sub">What the team needs to close, and who owns each piece</p>
+      </div>
+      <div class="body">
+        <div class="tablewrap">
+        <table class="dec">
+          <thead><tr><th>Decision</th><th>Next step</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr><td>Booth size and layout</td><td>Confirm the footprint with the venue (4x3m or wider), two tables, one or two screens, high table position</td><td class="own">TBD</td></tr>
+            <tr><td>Print new vs reuse</td><td>Quote the backdrop cover strip, the TV frame and two table front panels with the new design; reuse everything else</td><td class="own">TBD</td></tr>
+            <tr><td>Giveaway budget and game</td><td>Set the merch and prizes budget; choose wheel of fortune, game or raffle; decide who builds and runs it</td><td class="own">TBD</td></tr>
+            <tr><td>Unsold assets we claim</td><td>Track sponsor sales; at the deadline claim lounge, side room, wifi, lanyards, barista, sponsor room sign and water</td><td class="own">TBD</td></tr>
+            <tr><td>Check-in banner wording</td><td>Pick one of the four options (subtle to explicit) and confirm placement with the registration team</td><td class="own">TBD</td></tr>
+            <tr><td>Lounge name and asset</td><td>Choose the name, the totem or banner, the high table hook; brief the print supplier</td><td class="own">TBD</td></tr>
+            <tr><td>Booth hooks and barista pun</td><td>Pick one business and one technical hook, and the coffee rollup pun</td><td class="own">TBD</td></tr>
+            <tr><td>Instax and social flow</td><td>Who shoots, who posts, who tags; camera, film and printed frame ordered</td><td class="own">TBD</td></tr>
+            <tr><td>CTO's Dinner</td><td>Venue, budget, guest list, seating plan and the agenda slot on day one</td><td class="own">TBD</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="banner mt" style="margin-top:auto">All eyes on us. <span class="c">Let's make it ours.</span></div>
+      </div>
+      <div class="foot"><span>synvert xgeeks | KCD Porto 2026 | Branding and Booth Plan</span><span class="num">18</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div id="hint"><kbd>&larr;</kbd><kbd>&rarr;</kbd> or <kbd>space</kbd> to navigate, <kbd>F</kbd> fullscreen</div>
+<div id="hud" aria-label="Slide navigation">
+  <button id="prev" title="Previous slide" aria-label="Previous slide">&#8593;</button>
+  <div class="cnt" id="cnt" aria-live="polite">1 / 21</div>
+  <button id="next" title="Next slide" aria-label="Next slide">&#8595;</button>
+</div>
 
 <script>
 (function(){
-  var slides=[].slice.call(document.querySelectorAll('.slide'));
-  var i=0;
-  document.getElementById('tot').textContent=slides.length;
-  function show(n){
-    i=Math.max(0,Math.min(slides.length-1,n));
-    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
-    document.getElementById('cur').textContent=i+1;
-    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var cnt = document.getElementById('cnt'), prev = document.getElementById('prev'), next = document.getElementById('next'), bar = document.getElementById('progress');
+  var current = 0, ticking = false;
+
+  function setCurrent(i){
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    cnt.textContent = (current + 1) + ' / ' + slides.length;
+    prev.disabled = current === 0; next.disabled = current === slides.length - 1;
+    bar.style.width = ((current + 1) / slides.length * 100) + '%';
+    var h = '#s' + (current + 1);
+    if (location.hash !== h) history.replaceState(null, '', h);
   }
-  function fit(){
-    var s=Math.min(innerWidth/1280,innerHeight/720)*0.985;
-    document.getElementById('deck').style.transform='scale('+s+')';
+  function go(i){
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({behavior: 'smooth', block: 'start'});
+    setCurrent(i);
   }
-  addEventListener('resize',fit);
-  addEventListener('keydown',function(e){
-    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ') show(i+1);
-    else if(e.key==='ArrowLeft'||e.key==='PageUp') show(i-1);
-    else if(e.key==='Home') show(0);
-    else if(e.key==='End') show(slides.length-1);
+  prev.addEventListener('click', function(){ go(current - 1); });
+  next.addEventListener('click', function(){ go(current + 1); });
+
+  document.addEventListener('keydown', function(e){
+    if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+    switch (e.key){
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter': case 'j': case 'n':
+        e.preventDefault(); go(current + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace': case 'k': case 'p':
+        e.preventDefault(); go(current - 1); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(slides.length - 1); break;
+      case 'f': case 'F':
+        if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+        break;
+    }
   });
-  addEventListener('click',function(e){
-    if(e.clientX>innerWidth*0.66) show(i+1);
-    else if(e.clientX<innerWidth*0.33) show(i-1);
-  });
-  var h=parseInt(location.hash.slice(1),10);
-  fit(); show(isNaN(h)?0:h-1);
+
+  // Track which slide is on screen (scroll, swipe, wheel, hash)
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) setCurrent(slides.indexOf(en.target)); });
+    }, {threshold: 0.55});
+    slides.forEach(function(s){ io.observe(s); });
+  } else {
+    window.addEventListener('scroll', function(){
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function(){
+        var mid = window.scrollY + window.innerHeight / 2, best = 0;
+        slides.forEach(function(s, i){ if (s.offsetTop <= mid) best = i; });
+        setCurrent(best); ticking = false;
+      });
+    });
+  }
+
+  // Deep link: #s7 opens slide 7
+  var m = /^#s(\d+)$/.exec(location.hash);
+  if (m){ var idx = parseInt(m[1], 10) - 1; if (slides[idx]) { setTimeout(function(){ slides[idx].scrollIntoView({block:'start', behavior:'instant'}); setCurrent(idx); }, 50); } }
+  else setCurrent(0);
+  window.addEventListener('hashchange', function(){ var mm = /^#s(\d+)$/.exec(location.hash); if (mm && slides[mm[1]-1]) go(mm[1]-1); });
 })();
 </script>
 </body>
